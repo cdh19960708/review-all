@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>var const let</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // var const let的区别
+        // 1. var存在变量提升，const和let不存在变量提升
+        //    var定义相当于当前作用于的全局变量，再未定义前var变量前使用是undefined，const和let未定义前使用会报错
+        // 2. 暂时性死区
+        //    使用const、let变量必须要要在声明之后，存在暂时性死区，var没有
+        // 3. 块级作用域
+        //    const和let存在块级作用于
+        //    {
+        //       const a = 2
+        //    }
+        //    console.log(a)  报错 Uncagut ReferenceError：b is not defined
+        // 4. 重复声明
+        //    const let不允许重复声明
+        // 5. var、let可以修改声明的变量，const不可以
+        //      const定义的变量存储的是堆地址，因此如果是引用类型，通过下标或者属性名可以修改，
+        //      const只能确保指针地址正确，不能确保数据接口变化
+        //
+        //
+    </script>
+</body>
+
+</html>
