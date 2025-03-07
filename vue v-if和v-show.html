@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-if和v-show</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Vue v-if和v-show
+        // v-if是条件渲染，只有在表达式为true时，才会被渲染
+        // v-show是设置属性为display：none
+        //
+        // 区别：
+        // 1.v-show就是简单css的变换，v-if会删除、添加节点
+        // 2.编译过程：v-if会有完整的局部编译、卸载的过程，会合适地创建、销毁内部的事件监听和子组件，v-show就是简单的css变换
+        // 3.编译条件：v-if是真正的条件编译，只有为true时，才会去创建内部的事件监听和子组件，编译过程中会触发完整的生命周期
+        //
+        // v-if有更高的切换消耗，v-show有更高的初始化渲染消耗
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虚拟dom</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.0/vue.js"></script>
+    <script type="text/javascript">
+        // 虚拟dom是对真实dom的抽象，用vnode节点（js对象）作为基础的一层树，最终通过操作将这层树渲染成真实的dom
+        // 虚拟dom为vue和react带来了跨平台的能力 rn weex
+        // 虚拟dom到原生中渲染为对应的view原生ui或者wiget，也可以是GUI
+        //
+
+        // 虚拟dom是一个Object对象，包含最基础的三个属性tag、attrs、children（子节点）
+        // 创建虚拟dom是为了渲染成真实dom，会将真实dom属性一一应照
+
+        // 为什么使用虚拟dom？
+        // 真实dom对象是一个庞大的对象，每次更改都会带来性能上的负担，例如jquery对一个text的文案进行
+        // 几次更改，每一次都会触发dom的重新渲染，而使用虚拟dom，对于虚拟dom的操作，不会影响真实dom
+        // vue会将这些更改放入一个flashCallback中，进行批量更新，从性能上来说，进行dom渲染的次数减少
+        // 真实减少性能消耗，提升了性能
+
+        // 虚拟dom最大的优点不是带来了性能上的优化，而是对于view视图的抽象理解，使它具有跨平台的能力
+        // 虚拟dom在不同平台渲染成不同的view，可以是web的dom，也可以是原生组件或者GUI
+
+        // vue中的虚拟dom是通过createElement方法去实现的
+
+        // vue的diff算法（深度优先，同层比较）
+        // 只会在同层级比较，不会跨层级
+        // diff比较过程中，从两边向中间比较
+
+        // 深度优先：比较节点过程中，新节点和老节点的子节点不完全一致，优先比较子节点
+        // 同层比较：只比较相同层级的节点，子节点不同去比较子节点
+
+        // 具体比较：
+        // 1.有旧节点，没新节点，直接触发旧节点destory钩子
+        // 2.没有旧节点，有新节点，直接createElm新节点
+        // 3.比较新旧节点自身，一致就去patchNode，
+        //    patchNode中会去比较文本节点之类的属性，文本不同就会去改变文本属性，以及child节点，不一致就会去比较子节点
+        //         1.文本不一致，就会更改dom节点的文本属性为新节点属性
+        //         2.新节点没有子节点，直接删除老节点的子节点
+        //         3.旧节点没子节点，直接createEle新子节点，并add到父节点中
+        //         4.都有子节点，比较子节点，旧节点oldStartIndex oldEndIndex,新节点的newStartIndex newEndStartIndex，
+        //          4.1.第一次循环，判断新节点是否有oldEndIndex对应节点一致的节点，有的直接放到diff复用旧节点相同的节点，没有就直接删除旧节点对应的节点，使用新节点newStartIndex节点
+        //          4.2.oldEndIndex前移， newStartIndex后移一位
+        //          4.3.重复1,2循环，直到oldEndIndex小于旧节点oldStartIndex，新节点newStartIndex小于新节点newEndStartIndex，循环结束
+        // 4.自身不一致，直接删除旧节点，创建新节点
+
+        // key属性是每个vnode的唯一id，也是diff一种优化策略，通过key，可以更高效、更准确地找到vnode节点
+        // 设置key会优化子节点比较过程，不设置就是头尾比较，设置的话会根据key生成的对象进行精确查找，设置key一般会高效
+    </script>
+</body>
+
+</html>

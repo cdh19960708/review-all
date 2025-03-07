@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首屏加载缓慢</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Vue spa首屏加载缓慢
+        // 什么是首屏加载
+        //   首屏时间指的是浏览器响应用户输入网址，到首屏内容渲染完成的时间，此时整个网页的内容不一定渲染完成，但是需要展示首窗内容
+        //
+        // 可计算出首屏时间：
+        //    1. window.addEventListener('DOMContentLoaded')
+        //    2. performance.getEntriesByName('first-contentful-paint')[0].startTime
+        //
+        // 加载慢的原因
+        // 1.网络延时问题
+        // 2.资源包体积过大
+        // 3.是否重复加载某个资源
+        // 4.渲染内容阻塞
+        //
+        // 首屏优化方案
+        // 1.减小资源入口文件体积
+        //    通常是做路由懒加载，将代码分割成代码块，请求路由时，单独返回路由代码文件。
+        // 2.静态资源本地缓存
+        //   利用http的cache-control、etag、lastModifed设置过期时间
+        // 3.图片压缩
+        // 4.gzip压缩
+        // 5.UI框架按需加载
+        // 6.重复使用的插件打到mainfest主包中，
+        //    在webpack config中，对于WebpackChunkPlugin的minChunks: 3,表示引入3次以上的包打包到公共包中
+        // 7.SSR服务端渲染
+        //
+    </script>
+</body>
+
+</html>

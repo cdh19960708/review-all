@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>keep-alive</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //  keep-alive
+        //    是vue中的内置组件，会将组件切换过程中状态存在内存中，防止重复渲染dom
+        //    包裹动态组件时，会将不是actived的组件缓存起来，而不是销毁
+        //   有以下属性：
+        //     -include 字符串或者正则表达式或者字符串集合，会将匹配的组件会被缓存
+        //     -exclude 字符串或者正则表达式或者字符串集合，会将匹配的组件不会被缓存
+        //     -max  缓存最大数量限制
+        //
+        //   匹配会先检查组件自身的name，没有匹配到则匹配局部组件，components配置时定义的name，没有匹配上就不缓存
+        //        components: {
+        //              componentA: {
+        //                    name: 'name'
+        //              }
+        //        }
+        //
+        //    内部实现：
+        //      维护一个组件uid的keys，cache通过key缓存的集合
+        //         render主要逻辑：
+        //           通过组件的key在cache集合中找到，
+        //           有就取出componentInstance，没有就缓存componentInstance
+        //           返回此vnode，在集合中删除key
+        //
+        //      监听include，exclude，max等，变化的话触发render
+        //
+        //   keepAlive: 会注入activated，deactivated
+        //     第一次进入 beforeEnter-beforeCreate-created-beforeMount-mounted-activated-   -beforeRouteLeave-deactated
+        //     第二次进入 beforeEnter-activated-   -beforeRouteLeave-deactated
+        //
+        //  缓存的组件能通过beforeEnter以及activated去获取数据，ssr服务器渲染不会执行activated
+    </script>
+</body>
+
+</html>

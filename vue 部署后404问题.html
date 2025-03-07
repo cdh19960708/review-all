@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 404</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 前端项目本地启动访问正常访问，打包放到服务器上，通过某些链接加载404
+        // 这种情况只出现在前端路由为histroy模式上
+        // 本地启动时，微服务会映射到对应的路由，能正常访问
+        // 打包到服务器时，通过域名+路由访问，后端的服务器对于这种uri拦截如果没有配置，不会返回入口index.html，通过域名访问，命中uri，直接返回index.html
+        //         server {
+        //              listen  80;
+        //              server_name  www.xxx.com;
+
+        //              location / {
+        //                  index  /data/dist/index.html;
+        //              }
+        //         }
+        // 从例子看出来，访问www.xxx.com才会返回index.html，www.xxx.com/home不会返回index.html
+
+        // 解决方式：
+        // 1.服务器：通过域名访问，任何uri都返回index.html
+        // 2.路由采用hash模式，hash模式请求时url不会携带hash符号后面的路由
+    </script>
+</body>
+
+</html>

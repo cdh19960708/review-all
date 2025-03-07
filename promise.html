@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+
+<body>
+    <script src="./js/log.js"></script>
+    <script type="text/javascript">
+        //  promise
+        // const proIns = Promise.resolve(111)
+        // const pro = new Promise((resolve, reject) => {
+        //     // reject(222)
+        //     // return 111  // 没有更改promise的状态，仅返回值，后面不会执行
+        //     resolve(111) // 启动promise的状态更改，
+        // })
+        //     .then(res => {
+        //         console.log('第一个' + res)
+        //         // 接受状态更改的传递的值，此时promise的状态已经更改了，return可做为下个链式的启动值
+        //         // 不返回，后面就是unfined
+        //         return proIns
+        //     })
+
+        // const promise1 = pro.then(res => {
+        //     console.log('第二个' + res)
+        // }).then(() => {
+        //     console.log(888)
+        // })
+        // console.log(proIns === pro)
+
+        // const promise2 = promise1.then(res => {
+        //     console.log('第三个' + res)
+        // }).then(() => {
+        //     console.log(999)
+        // }).then(() => {
+        //     console.log(1000)
+        // }).then(res => {
+        //     console.log(1001)
+        // })
+
+        // Promise拒绝事件  抛出的错误会导致promise被拒绝执行
+        // const Pro1 = new Promise((resolve, reject) => {
+        //     resolve('promise开始了')
+        // })
+        // const rejPro1 = Pro1.then(res => {
+        //     console.log(res)
+        //     throw new Error('抛出错误')
+        //     console.log('执行吗')
+        // })
+        // // .catch(err => {
+        // //     console.log(err)
+        // // })
+
+        // setTimeout(() => {
+        //     rejPro1.catch(11)
+        // }, 50)
+
+        // window.onunhandledrejection = function (reason, promise) {
+        //     console.log(reason, promise)
+        // }
+
+
+
+        // window.onrejectionhandled = function (err) {
+        //     console.log(err, '======53')
+        // }
+
+
+        // Promise改造
+        // const applyAsync = (pro, fun) => pro.then(fun)
+        // const composeAsysnc = function (...func) {
+        //     console.log(func)
+        // }
+
+        // composeAsysnc(test1, test2)
+        // function test1() {
+
+        // }
+
+        // function test2() {
+
+        // }
+
+
+        // promise executor立即执行函数 --报错
+        // execPro被创建时就是 已兑现状态，resolve传入的新的Promise会导致其报错，
+        // 但内部的new Promise还没有兑现，报错不影响其兑现
+        // const execPro = new Promise((resolve, reject) => {
+        //     resolve(new Promise((resolveInner) => {
+        //         setTimeout(() => {
+        //             resolveInner("内部");
+        //         }, 100);
+        //     }))
+        // })
+        // execPro.then(console.log)
+
+        // Promise.resolve(11) 相当于
+        // new Promise((resove, reject) => {
+        //  resolve(11)
+        // }).then(res => {
+        //    console.log(res)
+        // })
+
+
+        const pro1 = Promise.resolve().then(res => {
+            console.log(111)
+            return Promise.resolve(222)
+        })
+        pro1.then(console.log)
+
+        Promise.resolve()
+            .then(res => {
+                console.log(333)
+            }).then(() => {
+                console.log(444)
+            }).then(() => {
+                console.log(555)
+            }).then(() => {
+                console.log(666)
+            })
+
+        // Promise.resolve(Promise.resolve("测试")).then(res => {
+        //     console.log(res)
+        // })
+
+        // 相当于 pro1是一个promise对象，其最终的状态由Promise.reolve的值决定
+        // const pro1 = Promise.resolve(proIns)
+        // const pro2 = pro1.then(console.log)
+        // console.log(pro1 === proIns)
+
+        // then方法是一个值时，起的作用就是将兑现值传递
+        // Promise.resolve(1).then(2).then(console.log) // 1
+
+
+
+        // 函数抛出错误或返回一个拒绝的promise，则then返回的promise会被拒绝、
+        // 更希望是在catch方法中补货被拒绝的promise
+        // Promise.resolve()
+        //     .then(() => {
+        //         // 令 .then() 返回一个被拒绝的 promise
+        //         throw new Error("Oh no!");
+        //     })
+        //     .catch((error) => {
+        //         console.log(`11 ${error.message}`);
+        //     })
+        //     .then(
+        //         () => {
+        //             console.log("不会被调用。");
+        //         },
+        //         (error) => {
+        //             console.error(`onRejected 函数被调用：${error.message}`);
+        //         },
+        //     )
+
+    </script>
+</body>
+
+</html>

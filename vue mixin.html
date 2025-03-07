@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mixins</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Vue mixins
+        // 作为功能模块使用，需要时混入，有利于代码复用又避免多继承的复杂
+        // 提供灵活的方式，分发vue中可复用的功能
+        // 分为：
+        //  1.全局混入  Vue.mixin = [textMixin]
+        //  2.局部混入
+        //         {
+        //              mixins: [textMixon]
+        //          }
+        //
+        // 源码分析：
+        //   1. 主要是mergeOptions
+        //      Vue.mixin = function (mixin: Object) {
+        //         this.options = mergeOptions(this.options, mixin)
+        //         return this
+        //      }
+        //
+        //     export function mergeOptions (
+        //       parent: Object,
+        //       child: Object,
+        //       vm?: Component
+        //     ): Object {
+        //      if (child.mixins) { // 判断有没有mixin 也就是mixin里面挂mixin的情况 有的话递归进行合并
+        //         for (let i = 0, l = child.mixins.length; i < l; i++) {
+        //         parent = mergeOptions(parent, child.mixins[i], vm)
+        //      }
+        //      const options = {}
+        //       let key
+        //       for (key in parent) {
+        //         mergeField(key) // 先遍历parent的key 调对应的strats[XXX]方法进行合并
+        //       }
+        //       for (key in child) {
+        //         if (!hasOwn(parent, key)) { // 如果parent已经处理过某个key 就不处理了
+        //           mergeField(key) // 处理child中的key 也就parent中没有处理过的key
+        //         }
+        //      }
+        //      function mergeField (key) {
+        //        const strat = strats[key] || defaultStrat
+        //        options[key] = strat(parent[key], child[key], vm, key) // 根据不同类型的options调用strats中不同的方法进行合并
+        //      }
+        //      return options
+        //    }
+        //
+        //  2. mergeOptions主要是做递归合并key，将传入的mixin和自身的options整合到options
+        //      每个key会去调start方法进行合并
+        //      注意：合并有4个策略
+        //          2.1. 替换型  props、methods、computed、inject
+        //          2.2. 合并型  data
+        //          2.3. 队列型  生命周期、watch
+        //          2.4. 叠加型  components、filters、directives
+    </script>
+</body>
+
+</html>

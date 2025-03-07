@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue3和vue2的区别</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // vue3和vue2的比较
+        // 1.更小
+        //     vue3移除了很多api，支持tree-shaking，将无用模块摇落，仅打包需要的，是包体积下降
+        //     vue2是配置对象的形式，有的api没有使用到，打包也会将这些api完整打包出来
+        //     vue3是将不同模块拆分到packages下维护，每个模块都是独立的，拆分更细化，功能更独立，（有的模块不依赖于vue3,），trre-shaking能很好的将没有用到的模块过滤打包
+        // 2.更快
+        //     编译方面更快，
+        //        2.1. diff算法：添加了静态标记flag(静态标签节点)，diff过程中不会比较
+        //        2.2. 静态提升：静态标签提升到render外，只会被创建一次，渲染时直接复用
+        // 提升前
+        export function render(_ctx, _cache, $props, $setup, $data, $options) {
+            return (_openBlock(), _createBlock(_Fragment, null, [
+                _createVNode("span", null, "你好"),
+                _createVNode("div", null, _toDisplayString(_ctx.message), 1 /* TEXT */)
+            ], 64 /* STABLE_FRAGMENT */))
+        }
+        // 提升后
+        const _hoisted_1 = /*#__PURE__*/_createVNode("span", null, "你好", -1 /* HOISTED */)
+
+        export function render(_ctx, _cache, $props, $setup, $data, $options) {
+            return (_openBlock(), _createBlock(_Fragment, null, [
+                _hoisted_1,
+                _createVNode("div", null, _toDisplayString(_ctx.message), 1 /* TEXT */)
+            ], 64 /* STABLE_FRAGMENT */))
+        }
+
+        //        2.3. 事件监听缓存：vue2的事件监听是动态的，每次都会去追踪，事件监听器缓存后，diff时可直接复用
+        export function render(_ctx, _cache, $props, $setup, $data, $options) {
+            return (_openBlock(), _createBlock("div", null, [
+                _createVNode("button", {
+                    onClick: _cache[1] || (_cache[1] = (...args) => (_ctx.onClick(...args)))
+                }, "点我")
+            ]))
+        }
+        //        2.4. SSR优化
+        //
+
+        // 3.composition Api增强代码逻辑性，以及代码复用
+        //     3.1. 逻辑组织
+        //     vue2的option Api，方法都是定义在methods中以及data、computed、watch都是统一定义在各自的配置中，比较碎片化
+        //     vue3的composition Api可以将完整的逻辑按照独立部分编写在一块，data、函数、computed、watch都是一个整体逻辑，清晰简洁
+        //     3.2 代码复用
+        //      vue2都是使用mixin来进行代码复用，复杂的功能，多个minxin复用，很难看出mixin的数据来源
+        //      vue3通过composition Api的形式，可以将这些代码很好的抽离出去复用，适合复杂逻辑
+        //
+        // 4.性能方面
+        //   vue2的响应式通过defineProperty来进行数据劫持实现，而defineProperty是对对象属性的监听达到响应式，
+        //   如果删除某个属性，新增某个属性，以及数组的某个元素被移除以及新增元素，都无法触发响应式，需要搭配$set、$delete去到达响应式,数组去重写了map、reduce等原生方法
+        //   在劫持过程中，是递归深度遍历，数组的情况是forEach再进行劫持
+        //
+        //   vue3是依赖es6 Proxy去实现响应式，监听的是对象本身，而不是属性，不需要再深度遍历
+        //
+        //
+        //
+        //
+        // 
+        function reactive(obj) {
+            const observer = new Proxy(obj, {
+                get(target, key, receiver) {
+                    console.log(target, key, receiver)
+                    return Reflect.get(target, key, receiver)
+                },
+                set(target, key, receiver) {
+                    console.log(target, key, receiver)
+                    return Reflect.set(target, key, receiver)
+                }
+            })
+            return observer
+        }
+
+        const obj = reactive({ a: 1, c: { test: '1' } })
+        obj.a = 2
+        obj.b = 3
+        obj.a
+        obj.c.test = '22'
+        console.log(obj)
+    </script>
+</body>
+
+</html>

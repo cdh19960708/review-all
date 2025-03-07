@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nextTick</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Vue nextTick
+        //   在下次视图更新完成之后的延迟回调。修改数据后立即调用这个方法，能拿到更新后的dom
+        //
+        //   vue更新dom是一个异步执行的。当数据发生变化时，vue会开启一个异步更新队列，视图需要等异步队列所有数据更新完毕，再进行更新
+        //
+        //   nextTick的机制是为了减少视图更新次数，是一种优化策略
+        //     nextTick会返回一个promise
+        //   源码分析：
+        // cb?: Function, ctx?: Object
+        export function nextTick(cb, ctx) {
+            let _resolve;
+            // cb 回调函数会经统一处理压入 callbacks 数组
+            callbacks.push(() => {
+                if (cb) {
+                    // 给 cb 回调函数执行加上了 try-catch 错误处理
+                    try {
+                        cb.call(ctx);
+                    } catch (e) {
+                        handleError(e, ctx, 'nextTick');
+                    }
+                } else if (_resolve) {
+                    _resolve(ctx);
+                }
+            });
+
+            // 执行异步延迟函数 timerFunc
+            if (!pending) {
+                pending = true;
+                timerFunc();
+            }
+
+            // 当 nextTick 没有传入函数参数的时候，返回一个 Promise 化的调用
+            if (!cb && typeof Promise !== 'undefined') {
+                return new Promise(resolve => {
+                    _resolve = resolve;
+                });
+            }
+        }
+        //   可以知道：主要是timerFunc这个异步任务，会去检测原生环境对于Promise、MutationObserver、setImmediate、setTimeout的支持度
+        //   顺序是
+        //     promise
+        //     MumationObserver
+        //     setImmediate
+        //     都不支持直接使用setTimeout
+        //
+        export let isUsingMicroTask = false
+        if (typeof Promise !== 'undefined' && isNative(Promise)) {
+            //判断1：是否原生支持Promise
+            const p = Promise.resolve()
+            timerFunc = () => {
+                p.then(flushCallbacks)
+                if (isIOS) setTimeout(noop)
+            }
+            isUsingMicroTask = true
+        } else if (!isIE && typeof MutationObserver !== 'undefined' && (
+            isNative(MutationObserver) ||
+            MutationObserver.toString() === '[object MutationObserverConstructor]'
+        )) {
+            //判断2：是否原生支持MutationObserver
+            let counter = 1
+            const observer = new MutationObserver(flushCallbacks)
+            const textNode = document.createTextNode(String(counter))
+            observer.observe(textNode, {
+                characterData: true
+            })
+            timerFunc = () => {
+                counter = (counter + 1) % 2
+                textNode.data = String(counter)
+            }
+            isUsingMicroTask = true
+        } else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
+            //判断3：是否原生支持setImmediate
+            timerFunc = () => {
+                setImmediate(flushCallbacks)
+            }
+        } else {
+            //判断4：上面都不行，直接用setTimeout
+            timerFunc = () => {
+                setTimeout(flushCallbacks, 0)
+            }
+        }
+        //   异步执行flushCallbacks，flushCallbacks会将callbacks中的即传入的cb执行
+        //
+        //  总结：
+        //    1.nextTick方法会将回调函数放到callbacks中
+        //    2.执行函数timerFunc会创建一个微任务或者宏任务
+        //    3.事件循环执行
+    </script>
+</body>
+
+</html>

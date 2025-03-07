@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>directives</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.0/vue.js"></script>
+    <script type="text/javascript">
+        // 数据驱动视图的方便操作 -- 指令系统
+        Vue.directive('copy', {
+            bind(el, binding, vnode) {
+                console.log(el, binding, vnode)
+            },
+            inserted(el, binding, vnode) {
+                console.log(el, binding, vnode)
+            },
+            update(el, binding, vnode) {
+                // 数据变更，子组件不一定更新
+            },
+            componentUpdated(el, binding, vnode) {
+                // 所有子组件都更新完
+                console.log(el, binding, vnode)
+            }
+        })
+        new Vue({
+            template: `<div v-copy="message">{{message}}</div>`,
+            data: {
+                message: '测试'
+            },
+            mounted() {
+                this.message = '生命周期mounted'
+                setTimeout(() => {
+                    this.message = 'update'
+                }, 0)
+            }
+        }).$mount('#app')
+    </script>
+</body>
+
+</html>

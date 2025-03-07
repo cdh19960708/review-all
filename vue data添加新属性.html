@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data添加新属性</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Vue data添加新属性
+        // 给data添加新的属性，数据更新，但是视图没刷新
+        //
+        // Observable中有个defineReactive方法，核心是用Object.defineProerpty方法对data内的每个属性进行数据劫持
+        // 新增的属性没有进过数据劫持，即没有响应式
+        //
+        // 解决方法：
+        //  1.Vue.set()
+        //  2.Object.assign:   this.obj = Object.assign({}, this.obj, {newProp: 'a' })
+        //  3.$updateforce 仅刷新自身组件、以及有插槽的子组件，并不是所有的子组件
+        //
+    </script>
+</body>
+
+</html>

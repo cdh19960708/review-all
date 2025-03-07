@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>filters</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.0/vue.js"></script>
+    <script type="text/javascript">
+        // 过滤器不改变原始数据，只是对数据处理后的返回值，再进行调用处理，理解为一个纯函数
+        Vue.filter('updateMessage', function (message, arg1) {
+            return message + arg1
+        })
+        new Vue({
+            template: `<div>{{message | updateMessage('参数一') | updateMessage}}</div>`,
+            data: {
+                message: '测试'
+            },
+            filters: {
+                // 局部过滤器优先于全局过滤器，可以使用多个过滤器，执行顺序从左到右
+                updateMessage(message) {
+                    return message
+                }
+            }
+        }).$mount('#app')
+    </script>
+</body>
+
+</html>

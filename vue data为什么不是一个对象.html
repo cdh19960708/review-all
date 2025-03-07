@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>data为什么不是一个对象</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Vue data为什么不是一个对象
+        //
+        // 使用Vue实例的时候，data可以是一个对象，也可以是一个函数（实例都是独立的）
+        new Vue({
+            data: {
+                test: 1
+            }
+        })
+        // 使用组件时，必须是函数，为了防止多个组件实例共用一个data，产生数据污染。
+        //    采用函数，initData时会将其作为工厂函数，返回全新的data
+    </script>
+</body>
+
+</html>

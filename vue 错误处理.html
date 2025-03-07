@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>错误处理</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //    vue中的错误处理
+        //    1.接口错误由拦截器处理，如果在生命周期中调用，且将axios的接口实例返回出去，会被vue的错误处理极致捕获
+        //
+        //
+        //    vue内部错误处理
+        //    1. errorCaptured生命周期： 能捕获组件及其子孙组件报错，返回false，不会被全局的errorHandler捕获
+        //       vue 2.5.0新增
+        //    2.Vue.config.errorHandler 全局错误监听，未配置就console.error常规处理（vue内部）
+        //       vue 2.2.0 监听到生命周期内部的错误
+        //       vue 2.4.0 监听到自定义事件内部的错误
+        //       vue 2.6.0 v-on事件监听内部错误，同样组件任何生命周期、或者纳入监听的沟子返回promise，那么promise内部也会被监听
+        //
+    </script>
+</body>
+
+</html>

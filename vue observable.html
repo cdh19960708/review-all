@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>observable</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Vue.observable 让一个对象变成响应式对象。vue内部会用它来处理data返回的数据
+        // 返回的对象可直接用于渲染函数和计算属性中，并且在变更时也能触发相应的更新
+        // 也可作为最小化的跨组件状态储存器
+
+        // Vue.observable({ a: 1 }) --> new Vue({ data: { a: 1 } })
+
+        // 在不是复杂情况下，Vue.observable可替换vuex实现其功能，
+        // 底层原理就是defineReactive函数
+    </script>
+</body>
+
+</html>

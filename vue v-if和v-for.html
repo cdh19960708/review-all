@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-if和v-for</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Vue v-if和v-for
+        // v-if是条件渲染，只有在表达式为true时，才会被渲染
+        // v-for是列表渲染
+        //
+        // 优先级：v-for优先级高于v-if
+        //  export function genElement (el: ASTElement, state: CodegenState): string {
+        if (el.parent) {
+            el.pre = el.pre || el.parent.pre
+        }
+        if (el.staticRoot && !el.staticProcessed) {
+            return genStatic(el, state)
+        } else if (el.once && !el.onceProcessed) {
+            return genOnce(el, state)
+        } else if (el.for && !el.forProcessed) {
+            return genFor(el, state)
+        } else if (el.if && !el.ifProcessed) {
+            return genIf(el, state)
+        } else if (el.tag === 'template' && !el.slotTarget && !state.pre) {
+            return genChildren(el, state) || 'void 0'
+        } else if (el.tag === 'slot') {
+            return genSlot(el, state)
+        } else {
+            // component or element
+        }
+        //
+        // 1.不要将v-for和v-if放到同一个标签上，会产生性能浪费（会先渲染列表，在去判断是否渲染）
+        // 2.将v-if放到template上，再将v-for进行内部循环
+        // 3.如果循环出现在内部，使用computed处理掉不需要的数据项
+        //
+        // Vue3中v-if优先级高于v-for
+        //
+        // 
+    </script>
+</body>
+
+</html>

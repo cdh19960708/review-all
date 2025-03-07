@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slot</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Vue slot作为Web Components套件技术的一部分，是web组件内的一个占位符
+        // 该占位符后期会用自己的标记语言填充
+        // slot插槽，slot在组件模板中会占好位置，当使用该组件标签时，组件标签内的内容就会替换模版中slot标签的位置，作为分发内容的出口
+        // slot插槽分为三种：
+        // 1.默认插槽
+        // 2.具名插槽
+        // 3.作用域插槽（用于传参）
+        //   3.1. v-slot仅用于template上，传参时可解构
+        //
+        // slot的原理：
+        //  1. 组件初始化时，接收到父组件传入的slot标签的内容，会存放到vm.$slots中（默认插槽vm.$slots.default, 具名插槽vm.$slots.xxx）
+        //    vm.$slots = resolveSlots(options._renderChilren, renderContext)
+        //  2. 当执行渲染函数时，遇到slot标签，会从vm.$slots取出内容替换，此时可以为插槽传递数据（作用域插槽）
+        //    function renderSlot (
+        //      name,
+        //      fallback,
+        //      props,
+        //      bindObject
+        //    ) {
+        //      // 得到渲染插槽内容的函数
+        //      var scopedSlotFn = this.$scopedSlots[name];
+        //      var nodes;
+        //      // 如果存在插槽渲染函数，则执行插槽渲染函数，生成nodes节点返回
+        //      // 否则使用默认值
+        //      nodes = scopedSlotFn(props) || fallback;
+        //      return nodes;
+        //    }
+    </script>
+</body>
+
+</html>
