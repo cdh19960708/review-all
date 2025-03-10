@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator函数</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Generator函数 生成器函数
+        // 可返回一个迭代器对象，可以依次遍历generator内部的每一个状态
+        // 特征：
+        // 1. 函数名前有个*号
+        // 2. 函数内部使用yelid表达式，定义不同内部状态
+
+        // generator是迭代器的具体实现，返回一个Iterator对象（迭代器对象），内部的状态可分为层次性的，可随着迭代器对象的消耗而改变
+        // 内部函数执行逻辑会随着yelid表达式暂停，迭代器对象调用next方法去消耗内部的函数的状态，next传入的对象可作为yelid表达式的返回值
+        // 迭代器next方法会返回一个迭代状态对象{ done: false, value 1 }, done表示函数的整个迭代序列已完毕，value为yelid表达式右边的值
+        // 函数解析时yelid会对函数内部进行切割，生成迭代序列，每个yelid就是一个迭代序列，return表示结束迭代 return的值会传递给迭代器next，此时next返回值是{done：true， value: value}
+        function* generatorFn() {
+            console.log(111)
+            var x = yield { 1: 1 }
+            console.log(x)
+            var y = yield 43
+            console.log(y)
+            return 3
+        }
+
+        var a = generatorFn()
+        for (const element of a) {
+            console.log(element)
+        }
+
+        console.log(a.next())    // { done: false, value: {1: 1} }
+        console.log(a.next(3))   // x = 3  { done: false, value: 43}
+        console.log(a.next(4))   // y = 4  { done: true, value: 3 } 迭代序列已完成
+        console.log(a.next(5))  // { done: true, value: undefined }
+
+        // 注意for of内部会调用next方法，完全消耗迭代器对象的状态序列，因此在for of后面调用next方法，状态已经都被重置为done： true，
+        // for of为内部迭代器语言，数组的keys、values、entries内部是靠Iterator接口实现的
+
+        // async函数就是generator函数的语法糖, 是自动执行generator函数
+    </script>
+</body>
+
+</html>

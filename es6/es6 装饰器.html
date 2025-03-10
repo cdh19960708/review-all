@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6 Decorator装饰器</title>
+</head>
+
+<body>
+    <script type="text/javascript" modules>
+        // 装饰者模式，在不改变原类和继承的情况下，用来扩展类和对象的属性和方法
+        // Decorator装饰器：一个方法，用来扩展类的属性和方法
+        // function test(target) {
+        //     target.name = '111'
+        // }                         --->  class A {}
+        // @test                           A = decoator(A) || A
+        // class state { }
+        // state.name
+        //
+        // 类属性装饰器有三个默认参数：
+        // 1.类的目标对象
+        // 2.需要装饰的属性名
+        // 3.描述属性名的描述对象
+        //
+        // 参考angular的装饰器写法
+        // @Component
+        // @output
+        // @input
+        // 多个装饰器，是由上到下引入，由下到上执行
+
+        function say(target) { }
+        class Say {
+            @say(1)
+            @say(2)
+            test = 1
+        }
+        // say(1) 先引入 say(2)引入 say(2)执行 say(1)执行
+        // 外层装饰器@say(1)先进入，内层装饰器@say(2)先执行
+    </script>
+</body>
+
+</html>

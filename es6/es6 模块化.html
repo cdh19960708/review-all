@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6 Module模块化</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Module 模块化
+        // 1.为什么需要模块化
+        //   1.1、变量和方法不容易维护，容易造成全局污染
+        //   1.2、script资源引入从上到下
+        //   1.3、大型项目多人协作情况下，难以维护
+        //
+        //
+        // 1.AMD: 异步模块定义，模块加载完之后，执行一个回调函数
+        // 2.CommonJS: 主要运行在服务端
+        //    2.1、所有代码都运行在模块作用域中，不会污染全局
+        //    2.2、同步加载，想执行后面操作，需等前面加载完成
+        //    2.3、首次加载后会缓存模块，后续加载只会返回缓存结果，想重新加载需要删除缓存
+        //    2.4、动态加载，会将整个模块拷贝，改变不会影响模块内部
+        // 3.ES6 Module模块化
+        //   AMD和commonjs都是动态引入，只有在运行时才确定模块的功能，ES6模块化是静态引入，再编译时就已经确定依赖关系以及输入输出变量
+        //
+        // var { resolve, join } = require('path')  -->      var path = require('path')
+        //                                                   var resolve = path.resolve
+        //                                                   var join = path.join
+        // var { resolve, join } = import('path')   只加载resolve、join方法，其余模块方法不加载，因此在编译阶段就已经引入
+
+        //
+        // 4.使用：
+        // export: 用于规定对外的模块接口
+        // import：用于输入其他模块提供的接口
+        // 4.1.export
+        //    一个模块就是一个文件，外部很难访问到文件内部的变量。需要文件内将变量输出
+        // export { resolve }
+        // 4.2.import
+        //   export规定输出接口后，使用import将接口导入进次模块中
+        //   import { resolve } from 'path'  path可以是绝对路径、相对路径、插件
+        //   import { resolve as test } from 'path' 使用as可以将方法重命名
+        //   import * as path from 'path' 使用*是导入整个模块对外输出
+        //  输入是只读的，不允许修改
+        //
+        // 4.3. 复合写法
+        //   export { resolve } from 'path' --> import { resolve } from 'path'
+        //                                      export { resolve }
+        //
+        //   这种复合写法就相当于 先引入，后输出
+        //
+        //
+        // 4.4. 异步引入
+        //   import('path').then(module => {   })
+        //  支持动态引入，引入后是一个promise对象，支持对该模块对象的接口访问（项目中vue-router来实现动态加载路由）
+        // 
+    </script>
+</body>
+
+</html>

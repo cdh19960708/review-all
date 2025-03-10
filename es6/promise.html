@@ -137,7 +137,7 @@
 
 
         // 函数抛出错误或返回一个拒绝的promise，则then返回的promise会被拒绝、
-        // 更希望是在catch方法中补货被拒绝的promise
+        // 更希望是在catch方法中捕获被拒绝的promise
         // Promise.resolve()
         //     .then(() => {
         //         // 令 .then() 返回一个被拒绝的 promise
@@ -154,6 +154,42 @@
         //             console.error(`onRejected 函数被调用：${error.message}`);
         //         },
         //     )
+
+
+        // promise对象：
+        // Promise是一个构造函数，传入一个立即执行函数executor，此函数拥有两个参数resolve和reject方法，去改变Promise实例对象的状态
+        // promise对象拥有三个状态 pending（进行中）  onFulfilled（成功兑现） onRejected（失败兑现）三个状态
+        // 由pending--> onFullfiled或者pending --> onRejected状态不可逆，resolve是成功兑现，reject是拒绝
+        // 每个实例上面都有then、catch、finally方法
+        // then和catch方法会返回一个promise方法，接受一个函数，函数的默认参数为上一个promise的兑现值
+
+
+        // 构造函数的方法
+        // 1. all  接受pormise的集合，集合promise都成功兑现，返回一个promise实例
+        // 2. allSettled  接受pormise的集合，集合promise状态都改变（兑现或者拒绝），返回一个promise实例
+        // 3. any  接受pormise的集合，集合内任一promise成功兑现，返回一个promise实例
+        // 4. race  接受pormise的集合，集合内任一promise状态改变（兑现或者拒绝），返回一个promise实例
+        // 5. resolve 返回一个已兑现的promise对象
+        // 6. reject  返回一个已拒绝的promise对象
+        //
+
+        // promise的核心方法是then方法
+        //  then方法是一个异步任务，内部会使用microTask微任务实现，会将函数的返回值使用promise进行封装，返回这个promise
+        //  这个promise的状态是由构造函数的resolve或者reject去敲定状态
+        //  then内部封装的promise 状态一定会兑现或者拒绝，避免阻塞
+
+        // resolve方法解析规则：
+        // 1. Promise.resolve(value)，value为promise，内部判断value.constructor === Promise，是的话就会复用value
+        //    不是的话，其实就像是new Promise(resolve => resolve(value))的形式语法糖
+        // 2. then方式传入必须是函数（可以是一个没有返回值的函数），内部会用new Promise封装一层，因此then方法可以链式调用
+        //    如果传入非函数对象，只会进行透传不处理
+        // 3. resolve解析：
+        //    1.thenable对象：
+        //        具有then方法的对象，then方法会有默认两个参数，类似executor立即函数函数，拥有onFulfilled和onRejected两个方法，onFulfilled会改变状态并且将值返回出去
+        //        如果这个onFulfilled方法依旧返回一个thenable对象，那么resolve就会深度扁平化链式处理
+        //    2.非thenable对象
+        //        返回一个promise已兑现的状态值，兑现值就是resolve传入的值
+        //
 
     </script>
 </body>

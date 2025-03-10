@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据类型</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 数据分为基本数据类型和引用数据类型
+        // 基本数据类型: 布尔值、数字、字符串、null、undefined、symbol
+        // 引用数据类型，存的是堆地址：object、Array
+
+        // 显示转换：
+        // 1.Number(): 将任意值转换为数字，遇到无法转化的就是NaN
+        //    Number(null) ---> 0
+        //    Number(undefined) ---> NaN
+        //    Number([5])  --> Number([5].toString()) --> Number('5')  --> 5  单个元素数字元素能转化，会调用toString方法在输出5，（多个不行5,5,5）
+        //
+        // 2. parseInt(): 逐个解析字符，遇到解析不了的，就会停下来
+        //   parseInt('32a1') ==> 32
+        //
+        // 3. String(): 将任一类型转化为字符串
+        // 4. Boolean():
+        //
+        // 隐式转换：
+        // 1.比较运算法 (==、!=、<、>)、if、while需要布尔值的地方
+        // 2.算数运算符 + 、-、*、%、/
+        //   除了+号可能会把运算子准换位字符串，其余的算数运算符都是转换为数字
+        //
+
+        // 引用数据类型不一定转换为布尔值,
+        // 1.都是简单类型时, 字符串和布尔值都转换成 数字
+        // 2.简单类型和引用类型比较时，引用类型转换成原始值比较
+        //      注意：原始值的方法是valueOf和toString方法，valueOf方法返回this，即对象自身，toString方法返回[object Object]
+        //                                                                        数组的toString调用join返回
+        // 3.都是引用类型，比较引用地址
+        // 4.null和undefined相等
+        // 5.NaN就是false
+        // console.log({} == !{}) ==> false  !{}是false {}是true，在转成数字
+        // console.log({} == {}) ==> false   引用类型，不相等
+
+        // === 全等运算符: 值类型相同，值也相同
+    </script>
+</body>
+
+</html>

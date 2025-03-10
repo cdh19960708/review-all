@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // Proxy用户创建一个对象的代理，从而实现基本操作的拦截
+        // Proxy为构造函数，用来生成proxy实例
+        // 若需要再Proxy内部获取对象的原生行为，建议使用Refect对象，是es6对操作对象新增的api，特点
+        //  1.Reflect具有Proxy的所有方法，只是已静态方式存在
+        //  2.Reflect是一个对象，不是构造函数
+        //  3.让Object的操作都变成函数行为
+        // 
+        // 拦截行为（常见）：
+        //  1.get 拦截读取某个属性的行为
+        //  2.set 拦截给某个属性赋值的行为
+        //  3.has 拦截 key in proxy的行为，返回一个布尔值
+        //  4.deleteProperty 拦截删除的行为，返回一个布尔值
+        //  5.ownKeys 拦截Object.keys、  for in循环的行为
+        //  6.apply 拦截将proxy实例作为方法的行为
+        // 
+        var obj = {
+            name: '测试一下'
+        }
+        var proxyIns = new Proxy(obj, {
+            get(target, propKey, receiver) {
+                console.log(target, propKey, receiver, '=====25')
+                return Reflect.get(target, propKey, receiver)
+            },
+
+            set(target, propKey, value, receiver) {
+                console.log(target, propKey, value, receiver, '=====30')
+                return Reflect.set(target, propKey, value, receiver)
+            }
+        })
+        proxyIns.name
+        proxyIns.name = 'LLL'
+        proxyIns.name
+    </script>
+</body>
+
+</html>
