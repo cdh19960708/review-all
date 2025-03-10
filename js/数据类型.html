@@ -33,6 +33,7 @@
 
         // 引用数据类型不一定转换为布尔值,
         // 1.都是简单类型时, 字符串和布尔值都转换成 数字
+        //          由表达式左边决定转换的类型， string < number
         // 2.简单类型和引用类型比较时，引用类型转换成原始值比较
         //      注意：原始值的方法是valueOf和toString方法，valueOf方法返回this，即对象自身，toString方法返回[object Object]
         //                                                                        数组的toString调用join返回
