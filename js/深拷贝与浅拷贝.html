@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深拷贝与浅拷贝</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 深拷贝与浅拷贝
+        //   浅拷贝：有原始数据的一份精确拷贝，但是深层的引用数据拷贝的是堆地址，改变原始数据内某个引用数据，拷贝的也随之改变
+        //   深拷贝：拷贝数据和原始数据指向不同的堆地址，原始数据改变，不影响拷贝数据
+        //  浅拷贝：Object.assign、...扩展运算符、concat、slice
+        //  深拷贝：_.cloneDeep、JSON.parse(JSON.stringify())
+        //                        JSON转换会自动过滤undefined、symbol和函数
+        // var obj = {
+        //     name: 'A',
+        //     test: undefined,
+        //     test1: Symbol(1),
+        //     test2: function () { }
+        // }
+        // var obj1 = JSON.parse(JSON.stringify(obj))
+        // console.log(obj1)  ----> {name: 'A'}
+
+        // 手写递归深克隆
+        function cloneDeep(obj) {
+            if (typeof obj !== 'object') return obj
+            // Date对象
+            if (obj instanceof Date) return new Date(obj)
+            // 正则对象
+            if (obj instanceof RegExp) return new RegExp(obj)
+            // Map对象
+            if (obj instanceof Map) {
+                const map = new Map()
+                obj.entries(([key, value]) => {
+                    map.set(key, cloneDeep(value))
+                })
+                return map
+            }
+            // Set对象
+            if (obj instanceof Set) {
+                const set = new Set()
+                obj.keys(key => set.add(cloneDeep(key)))
+                return set
+            }
+
+            // 数组或者对象
+            // var cloneObj = Array.isArray(obj) ? [] : {}
+            var cloneObj = new obj.constructor()  // obj.constructor为Array和Object构造函数
+            for (const key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    if (typeof obj[key] === 'object') {
+                        cloneObj[key] = cloneDeep(obj[key])
+                    } else {
+                        cloneObj[key] = obj[key]
+                    }
+                }
+            }
+            return cloneObj
+        }
+
+        var b = [22, 11, 4, [23, { name: '二维数组' }]]
+        var a = { age: 18 }
+        var obj = {
+            name: 11,
+            a,
+            b,
+            reg: /0-1/,
+            date: new Date('2025/03/11'),
+            walk() { }
+        }
+        var cloneObj = cloneDeep(obj)
+        a.age = 20
+        b[3][1].name = '改变'
+        console.log(obj, cloneObj)
+    </script>
+</body>
+
+</html>

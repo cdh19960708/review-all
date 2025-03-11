@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型链</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        function Person() { }
+        var person1 = new Person()
+        var person2 = new Person()
+        // 原型链
+        // 原型对象(prototype)：构造函数都有一个prototype属性，指向实例的原型对象，对象上放着实例对象的公有方法和属性，因此也有constrcutor属性
+        //          因为实例对象很多，所有的实例都是这个构造函数，因此从节约内存的角度看，constructor存在原型对象上，指向构造函数自身
+        console.log(person1.constructor === person2.constructor)  // true
+        //     person1.constructor -> person1._proto_.constructor -> Person.prototype.constructor -> Person
+        // 隐式对象（_proto_）: 实例对象都有_proto_, 指向它的原型对象
+
+        // person._proto_指向它的原型对象，就是Person.prototype，上面有个constructor属性，作为所有实例的公有属性，指向构造函数Person
+        // Person也是函数，作为Function的实例，因此它的_proto_指向Fcuntion.prototype
+        // person的原型对象也是对象，作为Object的实例，因此它的_proto_指向Object.prototype
+        // Function构造函数是js的内置对象，它也有_proto_,但是它是有自身构造的（js内部接口实现），因此_proto_指向自身的prototype，Fcuntion._proto_ = Fcuntion.prototype
+        // Object构造函数也是js的内置对象，它是个函数，因此它是有Function构造函数生成，因此_proto_只想Function的Prototype，Object._proto_ = Fcuntion.prototype
+        // Function.prototype 原型对象也是个对象，是有Object构造，因此Function.prototype._proto_ = Object.protptype
+        // Object.prototype对象不能由Object构造，否则会陷入无限环链表查询，没有出口，因此这个特殊的对象，作为原型链的出口，它的_proto_指向null
+        // Object.prototype._proto_ -> null
+        // 通过_proto_的将构造函数与实例连接起来的链路，称为原型链，可以引出继承的方式
+
+        // new做了什么事?
+        // 1. 创建一个空对象，作为实例返回
+        // 2. 因为会将空对象作为实例返回，作为new关键字生成的实例对象，因此这个对象的_proto_指向构造函数的prototype，所以设置obj._proto_ = Person.prototype
+        // 3. 调用构造函数，将实例对象作为this传入，参数一一传入
+        // 4. 返回实例对象
+        function newApply() {
+            var obj = {}
+            obj._proto_ = Person.prototype
+            Person.apply(obj, arguments)
+            return obj // 实例对象
+        }
+
+        function Person(name) {
+            this.name = name
+        }
+
+        var person1 = newApply('测试')
+        var person2 = newApply('原型')
+
+
+
+        // 继承
+        // 继承可以使子类具有父类的方法和属性，而不需要编写相同的代码
+        // 而且也可以重写方法，用于覆盖父类的同名方法，灵活
+        // 继承的方式：
+        // 1.原型链继承
+        function Parent() { }
+        function Child() { }
+        Child.prototype = new Parent
+        // 这段代码有点缺陷，所有的child都指向一个Parent实例，这样属性会相互影响
+
+        // 2. 构造函数继承
+        // 3. 组合式继承
+        // 4. 原型式继承
+        // 5. 寄生式继承
+        // 6. 寄生组合式继承
+        // 7. extends继承类（es6）
+        class Parent1 {
+            age = ''
+            name = ''
+            constructor(name, age) {
+                this.name = name
+                this.age = age
+            }
+        }
+        class Child1 extends Parent1 {
+            constructor(name, age) {
+                super(name, age)
+                this.height = 180
+            }
+        }
+        var child1 = new Child1('测试', 18)
+        console.log(child1)
+    </script>
+</body>
+
+</html>

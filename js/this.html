@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // this: 调用的对象，可读取属性和调用方法
+        // this的指向：
+        // 1. 全局作用域中，this指向window
+        // 2. 对象调用时，this指向最近的调用对象（上层对象）
+        // 3. new关键字创建时，this指向它的实例对象
+        // 4. apply，call，bind绑定传入的第一个参数
+        // 5. 箭头函数，函数定义时的作用域内的this
+
+
+        // apply，bind，call的区别
+        // 1. apply和call是立即执行，传参区别：apply接收参数为数组形式，call接收参数列表
+        // 2. bind是返回一个绑定this的匿名函数，需要二次调用，传参，bind接受参数列表
+
+
+        // 手写bind: fn.bind()  将this指向第一参数，传参执行
+        function myBind() {
+            if (typeof this !== 'function') {
+                throw new Error(`${this.name}必须为函数类型`)
+            }
+            var self = arguments[0]
+            var bindArguments = [...arguments].slice(1)
+            var _this = this
+            return function (...args) {
+                self.temp = _this
+                // 函数内部this指向它的调用对象，因此将self设置fn的属性，去调用
+                self.temp(...bindArguments, ...args)
+                delete self.temp
+            }
+        }
+        Function.prototype.myBind = myBind
+
+        function test() {
+            this.name = arguments[0]
+            this.age = arguments[1]
+        }
+        var obj = {}
+        // test.myBind(obj, '测试', 18)()
+        test.myBind(obj, '测试')(19)
+        console.log(obj)
+
+    </script>
+</body>
+
+</html>

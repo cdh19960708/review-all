@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭包</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 闭包：一个函数与其周围的状态（词法环境）的引用绑定在一起，这样的组合就是闭包
+        // 特点：
+        //   1. 创建私有属性
+        //   2. 延长变量的生命周期
+        //  一般的词法环境在函数返回后就会被销毁，但是闭包会保存这些词法环境的引用存在，即使函数创建时的执行上下文被销毁，
+        //  但是创建时的词法环境依旧会被保留下来，因此可以延长变量的生命周期
+        //  闭包可能会造成内存泄漏，对内存性能有性能影响
+
+        var counter = (function () {
+            var count = 0
+            function changeBy(val) {
+                count += val
+            }
+            return {
+                add() {
+                    changeBy(1)
+                },
+                getValue() {
+                    return count
+                }
+            }
+        })()
+        function makeCount() {
+            return counter
+        }
+        var count1 = makeCount()
+        var count2 = makeCount()
+        count1.add()
+        var val1 = count1.getValue()
+        var val2 = count2.getValue()
+        console.log(val1, val2)
+    </script>
+</body>
+
+</html>

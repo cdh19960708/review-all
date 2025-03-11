@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作用域链</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 作用域：当前变量和函数生效的区域
+        // 全局作用域：任何不在函数作用域和块级作用域的变量都在全局作用域下
+        // 函数作用域：局部作用域，内部变量仅在当前函数内支持访问，函数外无法访问
+        // 块级作用域：let和const在大括号内形成的作用域
+        // 词法作用域：静态作用域，当变量定义时，词法作用域就已经确定，而非执行时创建
+        //
+        // 作用域链：
+        //  当jsvascript引擎使用一个变量时，会在当前作用域寻找变量，如果没找到，会去外层作用域寻找，一层一层的寻找，
+        //  当全局作用域也没找到此变量，如果不是严格模式下，会隐式定义在全局作用域下，严格模式下会报错，沿着作用域逐级选择的规则。就是作用域链
+        // 
+
+        var a = 30
+        function test1() {
+            console.log(a)
+        }
+
+        function test2() {
+            var a = 10
+            test1()
+        }
+
+        test2()    // 30, 词法作用域在变量定义的时候就已经确定，不是执行的时候
+    </script>
+</body>
+
+</html>
