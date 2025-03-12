@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>typeof和instanceof</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // typeof和instanceof
+        // typeof 是检查数据的类型，返回的是类型的字符串
+        //   缺点：无法检验 null object array的类型
+        //   typeof null  ---> 'object'
+        //   typeof object  ---> 'object'
+        //   typeof array  ---> 'object'
+        // instanceof 检查是否是构造函数的实例，返回的是布尔值
+        //   缺点：无法判断基础数据类型
+        //   会沿着原型链查找构造函数是否存在，内部实现是Object.getPrototypeof方法
+        
+        // 精准判断：Object.prototype.toString.call,返回[object Xxx]字符串
+        // Object.prototype.toString.call('')  --> [object String]
+        // Object.prototype.toString.call(1)  --> [object Number]
+    </script>
+</body>
+
+</html>

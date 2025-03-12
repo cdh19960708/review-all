@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>尾递归</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 尾递归
+        // 递归：在函数中调用函数自身
+        //
+        // 尾递归：再函数尾位置调用自身。
+        //   特征：
+        //     1. 尾部调用函数自身
+        //     2. 可通过优化，使计算只占常量栈空间
+
+        function pow(x, n) {
+            let result = 1;
+            // 再循环中，用 x 乘以 result n 次
+            for (let i = 0; i < n; i++) {
+                result *= x;
+            }
+            return result;
+        }
+        // 使用尾递归优化
+        function powFn(x, n) {
+            if (n === 1) {
+                return x
+            } else {
+                // 每次函数执行完，需要上一次的参数与此次函数执行值进行计算，等待最后一次执行完再计算，难度O(n)，次数过多内存溢出
+                return x * powFn(x, n - 1)
+            }
+        }
+        console.log(pow(2, 2), powFn(2, 2))
+        // console.log(pow(2, 1000000), powFn(2, 100000))   // 递归次数过多，造成栈内存溢出
+
+
+        // 递归再次优化, 变量是顶层的变量，对上一次没有计算依赖，但是上一下函数需要下一次函数的返回值，因此递归优化的仅仅是计算，递归函数执行创建的上下文依旧会导致栈内存溢出
+        function powFn1(x, n, total = 1) {
+            if (n === 1) {
+                return total
+            }
+            return powFn1(x, n - 1, x * total)
+        }
+        // console.log(pow(2, 100000), powFn1(2, 100000))
+
+
+        // 使用递归扁平化数组
+        var arr = [1, 2, 3, [1, 2, [45, 8], 3, [1, 2, 3, [3, 5]]]]
+
+        function _flat(arr) {
+            let result = []
+            arr.forEach(item => {
+                if (Array.isArray(item)) {
+                    result = result.concat(_flat(item))
+                } else {
+                    result.push(item)
+                }
+            });
+            return result
+        }
+        console.log(_flat(arr))
+
+        // 优化常量计算, 函数内没有额外变量，是第一次执行时的，传入的空数组
+        function _flatVariable(arr, result = []) {
+            arr.forEach(item => {
+                if (Array.isArray(item)) {
+                    result = result.concat(_flatVariable(item, result))
+                } else {
+                    result.push(item)
+                }
+            })
+            return result
+        }
+    </script>
+</body>
+
+</html>

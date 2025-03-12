@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js小数运算精度丢失</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 小数运算精度丢失
+        0.1 + 0.2 === 0.3 // false
+
+        // 计算机是二进制，十进制转为二进制储存，存出有位数限制（64位），计算完转化成十进制过程中存在精度丢失
+
+        // 解决方案：
+        // 1. 转为整数计算，再转成小数
+        // 2. 第三方计算库 bigNumber进行更高进度的计算
+    </script>
+</body>
+
+</html>

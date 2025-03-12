@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖和节流</title>
+</head>
+
+<body>
+    <button id="app" with="100" height="30">测试</button>
+    <script type="text/javascript">
+        var btn = document.getElementById('app')
+        // 防抖和节流
+        // 节流：n秒内只执行一次，若在n秒内重复触发，只执行一次
+        // 时间戳版本
+        function throttle1(fn, wait) {
+            let oldNow = Date.now()
+            return function () {
+                const newNow = Date.now()
+                if (newNow - oldNow <= wait) return
+                fn.apply(this, arguments)
+                oldNow = Date.now()
+            }
+        }
+        // 定时器版本
+        function throttle2(fn, wait) {
+            let timer
+            return function () {
+                if (timer) return
+                timer = setTimeout(() => {
+                    fn.apply(this, arguments)
+                    clearTimeout(timer)
+                    timer = null
+                }, wait)
+            }
+        }
+
+        // 结合增强版 时间戳 + 计时器, 没有那个操作能精确到毫秒的，上面的版本够用
+        function throttle(fn, wait) {
+            var oldNow = Date.now()
+            var timer
+            return function () {
+                var newNow = Date.now()
+                var restTime = wait - (newNow - oldNow)
+                if (restTime > 0) {
+                    // 还剩下多长时间就能重新执行
+                    if (timer) return
+                    timer = setTimeout(() => {
+                        fn.apply(this, arguments)
+                        clearTimeout(timer)
+                        timer = null
+                        oldNow = Date.now()
+                    }, restTime)
+                } else {
+                    fn.apply(this, arguments)
+                    oldNow = Date.now()
+                }
+            }
+        }
+
+        function log(value) {
+            console.log(value)
+        }
+        btn.onclick = throttle(log, 10000)
+        // 防抖：n秒后执行该事件，若在n秒内重复触发，就重新计时
+        function debounce(fn, wait) {
+            var timer
+            return function () {
+                clearTimeout(timer)
+                timer = setTimeout(() => {
+                    fn.apply(this, arguments)
+                }, wait)
+            }
+        }
+
+    </script>
+</body>
+
+</html>

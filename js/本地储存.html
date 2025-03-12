@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>本地储存</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 本地储存
+        // 1.localStorage（H5新特性）
+        //  持久化本地缓存
+        //  同域共享
+        //  大小上限，一般为5M（浏览器厂商制定）
+        //  读取与存储都是字符串，会消耗内存
+        //  没有过期时间，只能主动清除
+        //
+        // 2.sessionStorage（H5新特性）
+        //  与LocalStorage一致，只是临时性缓存，随着窗口关闭，浏览器会自动清除缓存
+        //
+        // 3. cookie
+        //   小型文本文件，大小为4KB，储存在客户端的文件
+        //   是为了解决http请求无状态，不能识别用户身份，因此每次Http请求都要携带
+        //   cookie以name、value的形式存在，以及几个设置cookie有效期、安全性的几个属性组成
+        //
+        //   明文的cookie容易被窃取，应使用https加密
+        // 4. indexedDB(H5新特性)
+        //   本地数据库
+        //
+        // 总结:
+        //  1. 标记用户和追踪用户使用cookie
+        //  2. 用户敏感信息，一次性登录，使用sessionStorage
+        //  3. 长久保存数据使用localStorage
+        //  4. 大量解构化数据，富文本编辑器之类生成的xml使用indexedDB
+    </script>
+</body>
+
+</html>
