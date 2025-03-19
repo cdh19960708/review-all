@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元素不可见的几种方式</title>
+</head>
+
+<body>
+    <div style="width: 200px; height: 200px;background-color: red;display: none;"></div>
+    <div style="width: 200px; height: 200px;background-color: pink;visibility: hidden"></div>
+    <div style="width: 200px; height: 200px;background-color: green; opacity: 0; "></div>
+    <script type="text/javascript">
+        // 元素不可见的几种方式
+        // 1. display: none
+        //    设置display: none后，元素会消失，本身占有的空间会被其它元素占据，因此会导致重排和重绘
+        //    不会有过渡效果，不会响应点击事件
+        //
+        // 2. visibility: hiddle
+        //    隐藏元素不可见，在页面中DOM还在，占据空间，因此不会触发重排，会发生重绘
+        //    不会响应点击事件
+        //
+        // 3. opacity: 0
+        //    透明度设置为0，页面中DOM还在，占据空间，因此会触发重绘
+        //    响应点击事件
+        //    使用动画，还会触发GPU加速，性能提升
+        //
+        //    
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回流与重绘</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        // 回流与重绘
+        //  回流（重排）：布局引擎会根据样式计算每个盒子在页面上的大小、位置（设计计算的属性）
+        //  重绘：根据计算好大小、位置以及其它属性的盒模型，进行特性绘制
+        //
+        //  浏览器绘制的过程：
+        //   1. 解析html，生成DOM Tree; 解析css样式表，生成CSSOM Tree
+        //   2. 将DOM树和CSSOM树相结合（attachment），生成render tree渲染树
+        //   3. 将生成的渲染树，进行回流（Layout）布局，得到生成的节点的几何信息
+        //   4. 根据渲染树以及回流布局得到的几何信息，进行重绘（Painting）得到节点的绝对像素
+        //   5. Display，回流后得到的像素信息使用GPU绘制，展示在页面上
+
+        // 回流触发时机：
+        //   这一阶段主要是计算节点的位置和几何信息（大小、形状）。当页面的布局和节点的几何信息发生变化，就会发生回流
+        //  1.元素被删除或者新增
+        //  2.元素的尺寸大小（content、border、padding、margin、widht、height）、位置信息发生变化
+        //  3.元素内容发生改变：文本变化、图片资源变更
+        //  4.浏览器窗口大小变化
+        //  5.浏览器一开始渲染时必发生回流
+        //  6.获取通过计算得到的属性也会触发回流：offsetTop、offsetLeft、offsetWidth、offsetHeight、scrollTop、scrollLeft、scrollWidth、scrollHeight
+        //                                     clientWidth、clientHeight、clientTop、getComputedStyle方法、getClientBoundingRect方法
+        //
+        // 重绘触发的时机：发生回流，一定重绘
+        //  还有一些节点的除去几何、位置、内容信息的变更的信息变更
+        //   1. 文本的颜色
+        //   2. 文本的方向
+        //   3. 阴影的修改
+        //   4. 透明度
+        //   5. 可见性
+
+        //  浏览器优化机制：
+        //   由于每次重排都会进行计算而造成消耗，因此浏览器会通过队列批量执行的方式减少来优化重排过程。
+        //   浏览器会将修改操作放入队列中，当队列内的重排操作达到阈值或者到达一定时间，浏览器会清空队列内，进行重排绘制。
+        //   因此当读取offsetTop这种计算属性值或者布局信息时，为了确保值的正确，浏览器会进行重排，清空队列。
+        //
+        //  如何减少：
+        //   1. 尽量少使用内联式样式（这个过程发生在html解析过程中，要将style内的属性生成样式堆叠表stylesheet，额外消耗），尽量使用class类（style解析）
+        //   2. 应用元素的动画，使用position：absolute或者fixed，减少对其它元素的影响
+        //   3. 避免使用table布局，每一个table cell的改动，都会导致整个表格的重新计算
+        //   4. 使用css3的新特性 transition、filters进行GUI加速，不会引起回流
+        //   5. 避免使用css 表达式
+        //   6. offset之类的计算属性，用变量暂存起来，避免多次重排
+        //   7. 多个dom节点的修改，可以使用fragument Element进行优化，减少dom操作次数
+        //   8. Dom离线操作，先给目标dom设置display为none，然后进行width、height等属性的更改，后续更改完，设置为block
+        //   9. js进行style操作时，可用class代替style属性的更改（每一次style的属性设置，会触发一次回流），而class是一次性
+    </script>
+</body>
+
+</html>

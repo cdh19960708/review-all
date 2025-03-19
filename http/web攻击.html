@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>web攻击</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // web攻击
+        // 1. XSS跨站脚本攻击
+        //     具体就是将有恶意代码的脚本，通过恶意手段保存在数据库或者本地浏览器中，浏览器解析执行后盗取用户信息的攻击方式
+        //      预防：尽量将不可信的代码当做字符串解析，而不是解析执行
+        // 2. CSRF跨站请求伪造
+        //     用户在被攻击网站注册登录，诱导用户跳转目标站点，目标站点会向被攻击网站发起一个请求，此时会携带被攻击网站的cookie，
+        //     绕过后台的用户验证，从而进行提交操作，严重可以让服务器处于宕机状态
+        //     预防：同源检测
+        // 3. SQL注入攻击
+        //     将恶意的sql查询语句或者添加语句混入到请求参数中，再在sql服务器上执行攻击
+        // 
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grid布局</title>
+    <style>
+        #app {
+            width: 500px;
+            height: 200px;
+            background-color: aliceblue;
+            display: grid;
+            grid-template-columns: 200px 400px;
+            grid-template-rows: 800px;
+            grid-gap: 50px;
+            grid-template-areas: 'a b c '
+                'd e f';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div style="width: 200px; height: 200px; background-color: red;grid-area:b"></div>
+        <div style="width: 100px; height: 200px; background-color: green;grid-area:c"></div>
+        <div style="width: 100px; height: 200px; background-color: orange;grid-area:d"></div>
+    </div>
+    <script type="text/javascript">
+        // grid布局：二维布局方式，由纵横交错的纵横两组网格线形成的布局结构，能够同时处理行、列，擅长将区域分为几个区域
+        //  分为容器元素、项目元素
+        //  1.容器属性：
+        //  grid-template-columns 设置几列，并且设置列宽度
+        //  grid-template-rows 设置几行，并且设置行高度
+        //  grid-gap 设置每个项目元素的间隔距离，grid-row-gap、gird-column-gap
+        //  grid-template-areas 定义区域，项目可在规定区域内
+        //  grid-auto-flow 定义单元格的排列顺序，默认是row：先行后列，column：先列后行
+        //  justify-items 设置项目水平排列方式
+        //  align-items 设置项目垂直排列方式
+        //  justify-content 设置整个单元格在区域内的水平位置， （类似flex的justify-content）
+        //  align-content 设置整个单元格在区域内的垂直位置
+        //
+        //  2.项目属性
+        //   grid-area 设置项目在哪个区域内
+        //   justify-self 设置单元格内部的内容的水平方式
+        //   align-self 设置单元格内部的内容的垂直方式
+        //   grid-column-start 左边框的网格线
+        //   grid-column-end  右边框的网格线
+        //   grid-row-start  上边框的网格线
+        //   grid-row-end  下边框的网格线  这四个属性主要是用来给单个单元格规定位置
+    </script>
+</body>
+
+</html>

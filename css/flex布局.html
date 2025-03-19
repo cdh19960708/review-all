@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex布局</title>
+</head>
+
+<body>
+    <div style="width: 500px; height: 200px;background-color: aliceblue; display: flex;">
+        <div style="width: 200px; height: 200px;flex-grow: 2; background-color: red;"></div>
+        <div style="width: 100px; height: 200px;flex-grow: 1; background-color: green;"></div>
+    </div>
+    <div style="width: 500px; height: 200px;background-color: aliceblue; display: flex;">
+        <div style="width: 400px; height: 200px;flex-shrink: 4; background-color: red;"></div>
+        <div style="width: 200px; height: 200px;flex-shrink: 1; background-color: green;"></div>
+    </div>
+    <script type="text/javascript">
+        // flex布局（flex弹性盒子布局）
+        // 采用flex布局的元素，称为flex布局的container，它的所有子元素会自动成为容器成员，称为flex项目item
+        // 容器有两条轴，主轴和交叉轴，成垂直相交
+        // flex容器的属性有：
+        //   1. flex-direction： 决定主轴的方向，默认值为row，row-reverse（水平方向为主轴，起点在右边）、column（垂直方向为主轴，起点在上）、cloumn-reverse（垂直方向为主轴，起点在下）
+        //   2. flex-wrap：当容器内的项目排列不下去时，决定是否换行
+        //   3. flex-flow：是flex-direction  flex-wrap两个属性的简写
+        //   4. justify-content：主轴项目的对齐方式
+        //   5. align-items：交叉轴项目的对齐方式
+        //   6. align-content：多根轴线的对齐方式，一根轴线不起作用，设置flex-wrap：wrap，项目换行后，属性生效
+        //
+        // 项目元素的属性：
+        //   1. order: 项目排列顺序，数值越小，排列越靠前
+        //   2. flex-grow: 项目的方法比例（相对其它项目元素设置的值），一个设置为2，一个设置为1，那么主轴剩余空间有剩余的情况下，将剩余空间按照项目设置的比例进行宽度叠加
+        //   3. flex-shrink：项目缩小比例
+        //   4. flex-basic： 项目的初始大小
+        //   5. flex：flex-grow flex-shrink flex-basic的复合属性
+        //   6. align-self：允许单个项目设置私有对齐方式，覆盖容器的对齐方式
+    </script>
+</body>
+
+</html>
