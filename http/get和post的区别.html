@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>get和post的区别</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // get和post的区别
+        //  1. get在浏览器回退时无害，post会重新请求
+        //  2. get请求会被浏览器主动缓存，而post不会
+        //  3. get请求只支持url编码，而post支持多种编码形式
+        //  4. get请求参数会被完整的存在浏览器历史记录里，而post不会
+        //  5. get请求时，url参数有长度限制，post请求参数放在request body中，不存在限制
+        //  6. get没有post安全，get参数暴露在url上
+        //  7. get只接受ASCII类型字符，而post没限制，可以传递流
+        //  8. 数据包传输，get会将http header和data一起发出，post会先发出header，服务器响应状态1xx后，才会将data发送（除Firefox）
+    </script>
+</body>
+
+</html>

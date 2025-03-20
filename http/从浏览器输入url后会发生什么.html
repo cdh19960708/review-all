@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浏览器输入url会发生什么</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 浏览器输入url会发生什么
+        // 1. url解析
+        //    判断是否是一个合法的url，url包括协议、ip地址（域名）、端口、路径、资源描述符（查询字符串和锚点）
+        // 2. DNS域名解析
+        // 3. TCP连接
+        //   3次握手，客户端和服务器确定双方的发送、接受能力是否正常
+        //   第一次：客户端向服务器发送SYN报文
+        //   第二次：服务器收到客户端的SYN报文，并向客户端发送自己的SYN报文，并附带ACK报文发送给客户端（此时服务器确定客户端的发送能力正常）
+        //   第三次：客户端收到服务器的SYN报文以及ACK报文，也向服务器发送SYN报文以及ACK报文。双方正式建立连接。（客户端和服务器都确立双方的发送、接受能立正常）
+        // 4. http请求
+        //   发送http请求到目标服务器（请求行、请求头、请求主体）
+        // 5. 请求响应
+        //   根据connection：keep-alive决定TCP连接是否断开，
+        //    四次挥手
+        //    第一次：客户端向服务端发送FIN报文，表示要断开连接了。此时客户端处于FIN_WAIT状态，不会发送数据，等服务端确认
+        //    第二次：服务端收到FIN报文，并发送ACK报文。服务端处于CLOSE_WAIT状态。（告诉客户端我收到断开请求了）
+        //    第三次：服务端如果也要断开连接，会发送FIN报文。处于LAST_ACK状态。（告诉客户端我已经准备断开连接了）
+        //    第四次：客户端收到FIN报文后，再发送一个ACK报文，等确认服务端收到FIN、ACK报文后，就会close。服务端收到FIN、ACK报文后，就断开连接。
+        // 6. 页面渲染
+        //    将请求返回html渲染成页面
+        //    6.1. html解析生成DOM树，styleSheet解析生成CSSOM树
+        //    6.2. Dom树根据CSSOM树Attachment生成RenderTree（渲染树）
+        //    6.3. 根据渲染树进行Layout（回流），生成每个节点的大小、位置等信息
+        //    6.4. Panting（重绘）渲染树，生成像素信息
+        //    6.5. 将像素信息发给GPU，进行图层合并，显示在屏幕上
+        // 
+    </script>
+</body>
+
+</html>

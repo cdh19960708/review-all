@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stringify</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        function stringify(obj) {
+            if (typeof obj !== 'object' || obj === null) {
+                throw new Error('不是对象！')
+            }
+            var key = {
+                start: Array.isArray(obj) ? "[" : "{",
+                end: Array.isArray(obj) ? "]" : "}"
+            }
+            var str = key.start
+            Object.entries(obj).forEach(([key, value], index, arr) => {
+                if (typeof value === 'function') return
+                if (typeof value == 'object') {
+                    str += `${(Array.isArray(obj) ? '' : '"' + key + '":') + stringify(value)}`
+                } else {
+                    if (Array.isArray(obj)) {
+                        keyToValue = value
+                    } else {
+                        keyToValue = `"${key}":${value}`
+                    }
+                    str += keyToValue + (arr.length - 1 === index ? '' : ',')
+                }
+            })
+            str += key.end
+            return str
+        }
+
+        var a = [1, 3, 4, [2, 4]]
+        var b = { name: 1, arr: a }
+        console.log(stringify(a))
+        console.log(stringify(b))
+
+    </script>
+</body>
+
+</html>

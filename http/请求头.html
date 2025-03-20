@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>请求头</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 请求头：消息头部分Header
+        // 请求头可以自定义，因此会出现很多非标准的请求头
+        //
+        // Authorization：认证
+        // Cache-control：缓存机制
+        // Connection：TCP连接状态
+        // Cookie：会话状态，一般会包含用户信息
+        // If-Match：客户端提供实体和服务器实体匹配上，采取更新资源
+        // If-Modified-Since：允许返回对应资源在未修改的情况下返回304未修改
+        // If-None-Match： 允许对应资源在未修改的情况下返回304未修改
+        // If-Range：实体是否未被修改过，是就返回一个活多个未被修改过的range部分，否则就返回整个实体
+        // range：实体一部分
+        // User-Agent：浏览器标识字符串
+
+        // 强缓存、协商缓存
+        // 1. 强缓存：expires、cache-control
+        //  expires：过期时间，绝对时间，cache-control：相对过期时间
+        //  cache-control优先级高于expires
+        // 2.协商缓存
+        //  请求时判断是否过期，如果还没过期，直接从强缓存中读取实体
+        //  如果缓存过期，则判断实体资源是否被修改过，通过（Last-Modified（上次修改时间）、If-Modified-Since（上次返回Last-Modified的值））、
+        //  （Etag（资源标识符）、If-None-Match（上次返回Etag的值））等请求头字段判断
+        //  实体没有修改，则从强缓存中读取，实体已修改，直接从请求服务器获取新的实体资源，根据返回的Expires、Cache-Control浏览器决定是否强缓存新的资源
+
+        // 注意：Etag的优先级高于Last-Modified，资源标识符是唯一的，比对Etag比较高效
+    </script>
+</body>
+
+</html>
