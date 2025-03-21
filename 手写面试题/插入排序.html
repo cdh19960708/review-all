@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插入排序</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 插入排序
+        // 分为有序和无序数列，有序数列一般为数组第一项，然后去后面的元素，扫描到有序梳理每个元素比较大小插入左边还是右边
+
+        // 可将整个数组看为一个无序数列，前面的元素为有序数列，比较后将值插入到有序数列中，后续倒序和有序数列中的值比较
+        function insertSort(arr) {
+            for (let i = 1; i < arr.length; i++) {
+                // 内层循环循环有序数列，按顺序插入
+                var j = i - 1
+                // 如果这个值大于有序数列最后值，那么就无需比较了，肯定是有序的
+                // 因此要小于有序数列的最后一个值，才能进行比较，然后合适位置插入
+                var temp = arr[i]
+                while (j && temp < arr[j]) {
+                    // 只要当前值小于有序数列的值，那么就将数列比较的当前值向后瞬移一位
+                    arr[j + 1] = arr[j]
+                    j--
+                }
+                // 到这儿来，就是j的下标的值小于当前值，因此当前需要插入到j的后一位
+                arr[j + 1] = temp
+            }
+            return arr
+        }
+
+        var arr = [3, 4, 29, 12, 45, 12, 100, 23]
+        console.log(insertSort(arr))
+    </script>
+</body>
+
+</html>

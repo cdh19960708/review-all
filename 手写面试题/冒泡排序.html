@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冒泡排序</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 冒泡排序
+        // 相邻元素比较，如果第一个比第二个大，就交换他们
+        // 拿大的值在一次循环中一直比较，冒泡出一个最大的值，放在最后
+        // 重复循环一二步
+
+        function bubbleSort(arr) {
+            for (let i = 0; i < arr.length - 1; i++) {
+                // 外层循环只是开启循环，因为是两两比较，所以终点为length - 1, 每次循环冒泡一个，最大值
+                for (let j = 0; j < arr.length - 1 - i; j++) {
+                    console.log(i, j)
+                    // 两两比较，每次冒泡一个，每次都要重头开始比较，而每次循环都能确定最大的数，因此内层循环每次都少循环一次，再比较没意义
+                    if (arr[j] > arr[j + 1]) {
+                        var val = arr[j]
+                        arr[j] = arr[j + 1]
+                        arr[j + 1] = val
+                    }
+                }
+            }
+            return arr
+        }
+        // 这里有个问题，就是中间某次循环已经排序完毕，但是程序还是会继续下去，因为循环没有终止，因为外层的i循环还在继续，可以加个优化策略，当内层循环没有进行交换时，说明已经排序完成
+        // 此时就要终止循环
+
+        function bubbleSortEffect(arr) {
+            for (let i = 0; i < arr.length - 1; i++) {
+                let hasChange = true
+                for (let j = 0; j < arr.length - 1 - i; j++) {
+                    console.log(i, j)
+                    if (arr[j] > arr[j + 1]) {
+                        // 有交换
+                        var val = arr[j]
+                        arr[j] = arr[j + 1]
+                        arr[j + 1] = val
+                    } else {
+                        // 此次循环没有进行一次数值的交换，说明排序已经完成，外层的循环已经没必要了
+                        hasChange = false
+                    }
+                }
+                if (!hasChange) break
+            }
+            return arr
+        }
+
+        function bubbleSortWhile(arr) {
+            let i = arr.length - 1
+            while (i) {
+                var pos = 0
+                for (let j = 0; j < i; j++) {
+                    console.log(i, j)
+                    if (arr[j] > arr[j + 1]) {
+                        // 有交换
+                        var val = arr[j]
+                        arr[j] = arr[j + 1]
+                        arr[j + 1] = val
+                        pos = j
+                    }
+                }
+                i = pos
+            }
+            return arr
+        }
+
+        var arr = [2, 3, 4, 5, 7, 8, 9, 10]
+        bubbleSort(arr)
+        bubbleSortEffect(arr)
+        bubbleSortWhile(arr)
+        // 比较得知，数据量，加终止标识的更高效
+
+        // break关键字可以终止循环，return只能用在函数中，作为此次函数的返回值
+    </script>
+</body>
+
+</html>

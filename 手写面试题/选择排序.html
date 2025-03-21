@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择排序</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 选择排序
+        // 选择一个元素，从剩下元素中找到最小的，和它互换位置，然后开启下一轮排序, 时间复杂度O（n^2）
+
+        function selectionSort(arr) {
+            for (let i = 0; i < arr.length; i++) {
+                var temp, index = i
+                for (let j = i + 1; j < arr.length; j++) {
+                    if (arr[j] < arr[index]) {
+                        index = j
+                    }
+                }
+                temp = arr[i]
+                arr[i] = arr[index]
+                arr[index] = temp
+            }
+            return arr
+        }
+
+        var arr = [3, 2, 2, 4, 7, 8, 6]
+        console.log(selectionSort(arr))
+        // 数据量较大时，建议别用
+    </script>
+</body>
+
+</html>

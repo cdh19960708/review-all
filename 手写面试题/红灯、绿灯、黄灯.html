@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红灯、黄灯、绿灯</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 1秒后亮红灯，2秒后亮绿灯，3秒后两黄灯，后面一直这样
+        function light() {
+            Promise.resolve().then(
+                () => {
+                    return new Promise(resolve => {
+                        setTimeout(() => {
+                            red()
+                            resolve()
+                        }, 1000)
+                    })
+                }
+            ).then(() => {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        green()
+                        resolve()
+                    }, 2000)
+                })
+            }).then(() => {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        yellow()
+                        resolve()
+                    }, 3000)
+                })
+            }).finally(light)
+        }
+        light()
+        function green() {
+            console.log('绿灯')
+        }
+
+        function red() {
+            console.log('红灯')
+        }
+
+        function yellow() {
+            console.log('黄灯')
+        }
+    </script>
+</body>
+
+</html>
