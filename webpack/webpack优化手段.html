@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>优化手段</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //    1. JS代码压缩：压缩丑化bundle代码，使用terser-webpack-plugin
+        //    2. CSS代码压缩：去除空格，css-minimizer-webpack-plugin
+        //    3. HTML文件代码压缩：使用html-webpack-plugin的minify属性
+        //    4. 文件大小压缩：compression-webpack-plugin
+        //    5. 图片压缩，file-loader，image-webpack-loader
+        //    6. tree Shaking
+        //        将无用代码摇落，去除死代码。依赖于ES Module的静态语法分析，只判断依赖，不执行代码
+        //        js实现：标记函数，是否执行，通过terser-webpack-plugin压缩去除
+        //    7. 代码分离
+        //       将代码分离到不同的bundle中，做到按需加载或者并行加载，文件模块颗粒度更小
+        //       通过内置的插件SplitChunkPligin配置实现
+        //    8. 内联chunk
+        //       将一些需要加载的chunk内联到html中，使用inline-chunk-html-plugin实现
+
+        // 提升webpack构建速度
+        // 1. 优化loader配置
+        // 2. terser开启多线程
+        // 3. resolve.extensions, 解析到匹配文件自动添加扩展名
+        // 4. resolve.modules node_modules默认是往上查找，设置resolve.modules的路径，直接查找这个路径，增加效率
+        // 5. resolve.alias 为路径起别名，增加查找效率，减少查找过程
+        // 6. cache-loader 将性能开销大的loader之前添加cache-loader将结果写入到磁盘中，提升二次构建效率
+        // 7. DLLPlugin 动态链接库，不同项目间共享相同的插件
+    </script>
+</body>
+
+</html>

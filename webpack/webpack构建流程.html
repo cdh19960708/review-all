@@ -12,10 +12,64 @@
         // webpack是一个串行过程，工作流程就是将所有插件串联起来
         // 运行过程中，会广播事件。插件只需要监听对应的事件，就可以加入到webpack的机制中，去改变webpack运作，使整个系统扩展性良好。
         // 1. 初始化流程
-        //
+        //     从配置文件和shell语句读取合并参数，得到最终参数，配置文件为webpack.config.js
+        //     entry为文件入口
+        //     output输出具体路径
+        //     module：配置处理各模块的loader（解析模块源代码），不同loader由上到下，相同loader从右到左执行
+        //     plugin：插件对象，在webpack事件流中执行对应的方法
+        //     resolver: 解析器，complier编译器上有很多reslover解析器实例
+        //  将配置文件中的配置对象拷贝到options中，并加载plugins，然后开始初始化编译对象Complier，该对象掌控整个编译流程的生命周期，
+        //   Complier对象不参与具体任务，只是调度plugins工作
         // 2. 编译构建流程
+        //      2.1. complie开始编译
+        //      2.2. make-module 从入口模块分析依赖模块（递归），创建模块对象
+        //      2.3. build-module 构建模块，使用loader将这些模块转换成标准的js模块
         // 3. 输出流程
+        //     seal封装构建结果：build完成，优化封装chunks文件，生成对应的代码
+        //     emit输出到output的路径
 
+
+        // loader：解析模块，在import或加载时预处理文件
+        //  webpack所做的事，就是分析各模块依赖，模块转化js对象（loader），形成资源列表，最终打包输出到具体文件夹
+        //  webpack遇到解析不了的对象时，就会使用配置的loader对象进行解析，按照loader配置的文件解析规则进行匹配
+
+
+        // plugin: 解决loader无法实现的任务，扩展loader的功能
+        // plugin赋予了强大的扩展功能，例如打包优化、资源管理、环境标量注入等，会运行在complier整个编译周期中，并且在不同阶段（生命周期中）都能访问到complier对象
+        // 
+        // 实质就是一个具有apply方法的对象
+        class ConsolePlugins {
+            apply(complier) {
+                complier.hooks.run.tag(pluginName, (compilation) => {
+                    // compilation对象就是编译好的对象
+                })
+
+                complier.hooks.AfterEmit.tag(pluginName, (compilation) => {
+                    // compilation对象就是编译好的对象
+                })
+            }
+        }
+        // 编译的钩子
+        //  entry-option： 入口拷贝生成option配置对象
+        //  run
+        //  compile：真正的编译，创建compilation对象之前
+        //  compilation：生成了compilation对象
+        //  make-module：递归分析模块依赖，对模块进行build-module
+        //  after-compile：编译完成
+        //  emit：将内存中的assets写入到磁盘文件夹之前
+        //  afrer-emit：将内存中的assets写入到磁盘文件夹之后
+        //  done：完成编译过程
+        //  fail：编译失败
+
+        // 常见的插件
+        // HtmlWebpackPlugin：打包结束后生成一个html，将生成的js引入到html中
+        // clean-webpack-plugin：清除构建目录
+        // mini-css-extract-plugin：将css提取到一个单独的文件中
+        // definePlugin：内置插件，允许在编译过程中创建配置
+
+        // 区别：
+        // 1. plugin运行在编译的整个阶段，loader只运行在make-module阶段
+        // 2. loader只是功能单一的转换器，能够加载资源，并对这些资源进行简单的处理：编译压缩等，plugin的功能丰富，例如资源管理、打包优化、环境变量注入
     </script>
 </body>
 

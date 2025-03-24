@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMR原理</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // HMR原理
+        //  webpack创建两个服务：提供静态资源的express-server和更新socket服务
+        //  express serve将打包生成静态资源返回给浏览器加载解析
+        //  socket是一个长连接，当监听到对应的模块发生变化时，会生成一个json和js文件（update chunk）
+        //  然后socket服务把生成的mainfest和update chunk主动推送给浏览器
+        //  浏览器收到这两个文件后，通过hmr runtime机制，加载文件并对对应模块进行更新（触发render，局部回流）
+    </script>
+</body>
+
+</html>
