@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泛型</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 泛型
+        // 泛型允许我们在强类型语言中编写代码时使用以后才制定的类型，在实例化时作为参数指明这些类型
+        // 在定义时不确定类型，在使用时制定类型的特性
+        // function test(a: string | number): string | number {}
+        // 可以改为 function test<T>(a: T): T {}
+        //
+        // 通过<>的形式表述，可以一次性定义多个参数
+        //
+        // 索引泛型、约束泛型
+        //   索引就是动态属性key，对象key为string，数组为下标index，约束泛型就是将泛型约束在此类型中
+        //   function b<T extends object, U extends keyof T>(a: T , b: U) {}
+        //    obejct是{}，实际使用object约束a也可以，但是使用泛型T extends object更好的诠释a是一个对象，内部索引动态的对象
+        //    而 keyof会将T的索引迭代，如果传入的b不是a的一个索引，那么就会报错
+        //   var a = { name： 1， age： 12 }
+        //   b(a, 'sex')  --> ts报错，key为 name | age
+
+        //  多类型约束，通过extends实现多类型约束
+        // interface First {}
+        // interface Second {} 4
+        // interface Third extends First, Second { }
+        // class Demo<T extends Third> {
+        //     constructor(ev: T)
+        // }
+
+        // 映射类型
+        // Partial就是基于隐射类型实现的
+        //  interface Props { name : string, age: number }
+        //  type Prop = { [key in keyof Props]: string | number }
+
+        // 索引查询: T[p]，用来查属性的类型
+        // interface Props { name: string, age: number }
+        // type Prop =  Props[keyof Props]    string | number
+
+        // 联合类型: T | U, 表示并集，连接类型中的任意类型
+        // 交叉类型：T & U, 表示交集，连接类型中的合并类型
+        // 条件类型：经常用于不确定的情况，T extends U ? X : Y
+
+
+
+        //  工具类型
+        //  工具类型 Partial: 构造一个类型，是构造类型的所有属性变为可选
+        //  interface Props { name : string, age: number }
+        //  type propType = Partial<Props>   --> type propType { name?: string, age?: number }
+
+        //  工具类型Readonly，构造一个类型，使属性变为只读
+        //  interface Props { name : string, age: number }
+        //  type propType = Readonly<Props>
+        //  const a: propType = { name: '11',age: 18}  a以后就不能更改属性
+
+        // 工具类型Pick： 选择一些属性来构造一个新类型
+        // interface Props { name : string, age: number }
+        // type propType = Pick<Props, 'name'>
+
+        // 工具类型Record：Record<key, Type>来构建一个新类型
+        // type Prop = Record<'a'|'b'|'c', number>
+        // var a：Prop = { a:1， b:1， c:1 }
+    </script>
+</body>
+
+</html>

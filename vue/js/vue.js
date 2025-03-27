@@ -24,7 +24,7 @@ function defineReactive(target, key, val) {
         enumerable: true,
         configurable: true,
         getters() {
-            if (Dep.target) dep.addSubs(Dep.target)
+            if (watcher) dep.addSubs(watcher)
             return val
         },
         setter(newVal) {

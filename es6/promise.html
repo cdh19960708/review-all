@@ -158,7 +158,7 @@
 
         // promise对象：
         // Promise是一个构造函数，传入一个立即执行函数executor，此函数拥有两个参数resolve和reject方法，去改变Promise实例对象的状态
-        // promise对象拥有三个状态 pending（进行中）  onFulfilled（成功兑现） onRejected（失败兑现）三个状态
+        // promise对象拥有三个状态 pending（进行中）  onFulfilled（成功兑现） onRejected（拒绝）三个状态
         // 由pending--> onFullfiled或者pending --> onRejected状态不可逆，resolve是成功兑现，reject是拒绝
         // 每个实例上面都有then、catch、finally方法
         // then和catch方法会返回一个promise方法，接受一个函数，函数的默认参数为上一个promise的兑现值
