@@ -82,7 +82,7 @@ function remove(arr, ele) {
     }
 }
 
-// 观察者：观察整个vue实例，更新视图
+// 观察者：观察整个vue实例，更新视图，就是Vue.watch $watch方法的构造函数，观察的不仅仅是data属性, 还有computed，props，inject、provider提供的属性值
 class Watcher {
     vm = null
     deps = []
