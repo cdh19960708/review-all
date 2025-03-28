@@ -6,8 +6,8 @@ class Vue {
         // initProxy.call(this, options.data)
         // 数据劫持
         observer(options.data)
-        // 创建观察者
-        const watcher = new Watcher(this)
+        // 创建观察者, 在beforeMount和Mounted中间去实例化，传入update方法，接收render函数，在数据变更时执行render
+        const watcher = new Watcher(this, render)
     }
 }
 
