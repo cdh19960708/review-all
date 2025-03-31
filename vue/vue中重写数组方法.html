@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重写数组方法</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 重写数组方法
+        const arrayProto = Array.prototype
+        const arrayMethods = Object.create(arrayProto)
+        const methodsToPatch = [
+            'push',
+            'pop',
+            'shift',
+            'unshift',
+            'splice',
+            'sort',
+            'reverse'
+        ]
+
+        methodsToPatch.forEach(function (method) {
+            const original = arrayProto[method]
+            def(arrayMethods, method, function mutator(...args) {
+                const result = original.apply(this, args)
+                const ob = this.__ob__
+                let inserted
+                switch (method) {
+                    // 能够新增属性的方法取出传入的元素
+                    case 'push':
+                    case 'unshift':
+                        inserted = args
+                        break
+                    case 'splice':
+                        inserted = args.slice(2)
+                        break
+                }
+                // 对于元素进行observer监听
+                if (inserted) ob.observeArray(inserted)
+                // 通知对应的watcher，数据变更了
+                ob.dep.notify()
+                return result
+            })
+        })
+    </script>
+</body>
+
+</html>

@@ -49,7 +49,7 @@ function initProxy(data) {
             }
         })
     })
-}
+}6
 
 // 收集依赖类Dep, 主要是在数据变更时，去通知所有watcher更新
 class Dep {
@@ -103,12 +103,29 @@ class Watcher {
 
     removeDep() {
         Dep.target = null
-    }
+    } 
 
     update() {
         this.updateFn.call(this.vm)
     }
 }
 
-
 // 修饰符处理了很多dom事件的细节，让开发者只关注业务逻辑本身，不必再处理烦恼的事
+
+// vue init的顺序
+// initProxy --> 将this._data中的数据代理到this上
+// initLifecycle --> 在实例上注册生命周期的配置属性
+// initEvents  --> 初始化事件
+// initRender  --> 初始化render
+// callHook（beforeCreate） --> 执行beforeCreate函数
+// initInject --> 初始化注入inject
+// initState  --> 初始化props、data、methods、computed、watch
+// initProvider  --> 初始化provider
+// callHook(created) 
+// callHook(beforeMount) 挂载组件前调用
+// callHook(mount)  检测标志位，为ture时，已挂载完成
+
+// 再解析html过程中，遇到变量，会触发Object.defineProperty的getter，从而对进行watcher放入dep中，
+// 当数据变更时，将对应的watcher放入queue中，并对watcher进行去重处理，执行最后一个watcher的变更操作
+// 执行run方法，会触发渲染watcher定义时传入的componentUpdate方法
+// 本质是一个update函数，内部调用render，内部会patch操作

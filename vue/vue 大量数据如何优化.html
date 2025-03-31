@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue大量数据优化</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // vue中大批量数据优化
+        // 1. 数据切片处理，虚拟列表，无限下拉刷新
+        // 2. 异步渲染
+        //     大量数据需要计算的放入辅助线程web worker中计算，缓存，搭配documentfragment文档碎片进行处理
+        //     通过Vue.nextTick将渲染任务放在下一次事件循环中，或者放在requestAnimationFrame（下次绘制之前）、requestIdleCallback（主线程闲置）中执行
+        // 3. 大量展示数据，使用Object.freeze冻结，减少追踪变化的消耗
+    </script>
+</body>
+
+</html>

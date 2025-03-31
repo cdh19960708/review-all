@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>computed和watch</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // watch作为监听属性的方法，会监听props、data、computed三种，并且会产生副作用（回调函数），因为副作用中可能会再次修改值，因此避免视图多次渲染
+        // vue会将数据变更放在一个队列内, 在js事件循环中, 视为当前执行函数执行完, 同步任务结束之前这个时机, 进行必要的渲染与绘制
+        // watch分为三种:
+        // 1. 渲染watch，组件更新的watcher，追踪模版内的引用数据，调用update方法，执行render函数，去重新渲染
+        // 2. 惰性computed watch,惰性属性dirty, 当computed get中的任一依赖变更时，惰性watch中dirty设置为true，只有在读取时, 才会去计算，将值返回，并且将dirty重新赋值为false。
+        //    追踪计算属性的依赖，并在依赖变化时，重新计算
+        // 3. 自定义watch，为需要观察的属性创建单独watch，并执行对应的回调
+
+        // computed:
+        // 1. 初始化warcher，每个key就是一个单独的watcher
+        // 2. 定义getter和setter，设置为一个读取watcher内部值的函数；
+        //    当computed为函数的形式时，get为watcher中的get返回值，为配置对象时，会存在cache缓存，为上一次赋值的值，没有后续依赖变更，每次读取都是cahce
+        // 3. 收集get中的依赖，当依赖变更时，会设置dirty为true，当从this中读取时，回去执行watch.evaluate调用传入的用户自定义getter函数的返回值作为this.value作为新值
+        //    配置cache时（computed写法为配置属性，不是函数），会将结果缓存，作为下次读取的返回值
+        // 4. 使用defineProperty进行覆盖重写
+                                           
+        
+        // watch和computed的区别
+        // computed的实现就是一个watcher，不过是惰性watcher，会将自定义的get作为expOrFn传入，当读取时，会执行这个getter读取返回值作为watcher的值返回给代理, 不会变更，只做计算
+        // watch就是一个完整的观察者，渲染观察者会监听定应的依赖，在变更时执行update方法，内部执行render方法，去渲染
+        // 自定义的watch就是一个侦听器，会监听这些属性，提供旧值和新值，会有监听的回调，内部可以有一些变更的操作。支持深度监听
+    </script>
+</body>
+
+</html>
