@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>进制转换</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 将16进制的数据转换成10进制
+        function intTrans(num) {
+            var valueMap = {
+                A: 10,
+                B: 11,
+                C: 12,
+                D: 13,
+                E: 14,
+                F: 15
+            }
+            var value = 0
+            var tokens = num.toString()
+            var len = tokens.length - 1
+            for (var index = len; index >= 0; index--) {
+                var str = tokens[index].toUpperCase()
+                if (valueMap[str]) {
+                    value += valueMap[str] * Math.pow(16, len - index)
+                } else {
+                    value += str * Math.pow(16, len - index)
+                }
+            }
+            console.log(value)
+
+            // parseInt(num, 16)  直接进制转化
+        }
+    </script>
+</body>
+
+</html>

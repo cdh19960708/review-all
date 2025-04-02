@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HJ10 字符个数统计</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 一只青蛙一次可以跳上1级台阶，也可以跳上2级台阶。求该青蛙跳上n级台阶有多少种方法
+        function jumpFloor(number) {
+            // write code here
+            if (number - 1) return 1
+            if (number - 2) return 2
+            return jumpFloor(number - 1) + jumpFloor(number - 2)
+        }
+
+        // 1  --> 1种跳法
+        // 2  --> 1 1、2 有2种跳法
+        // 3  --> 1 1 1、1 2、2 1 有3种跳法
+        // 4  --> 1 1 1 1、1 1 2、1 2 1、2 1 1、2 2 有5种跳法
+        // 5  --> 1 1 1 1 1、1 1 1 2、1 1 2 1、1 2 1 1、1 2 2、2 1 1 1、2 1 2、2 2 1 有8种
+        // 斐波那契数列 后面是前面的加
+    </script>
+</body>
+
+</html>

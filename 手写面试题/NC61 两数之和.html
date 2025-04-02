@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两数之和</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 给出一个整型数组 numbers 和一个目标值 target，请在数组中找出两个加起来等于目标值的数的下标，返回的下标按升序排列。
+        function twoSum(nums, target) {
+            const arr = [0, 0]
+            const map = new Map()
+            nums.forEach((item, index) => {
+                if (map.has(target - item)) {
+                    arr[0] = map.get(target - item)
+                    arr[1] = index + 1
+                } else {
+                    map.set(item, index + 1)
+                }
+            });
+            return nums
+        }
+    </script>
+</body>
+
+</html>
