@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webpack和vite的区别</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //  webpack和vite
+        //  webpack是打包是整体打包，支持热更新，tree-shaking，打包时会触发完整流程，最后输出到固定文件夹，开启dev-server，请求才能返回资源
+        //  相应文件变更时，会将有依赖的模块重新编译，通过hmr更新给浏览器。
+        //
+        //  vite是支持两种模式，rollup和esModule。rollup是生产模式使用的打包模式，属于静态打包，打包速度快，打包体积小，适于第三方插件打包
+        //  本地开发时，使用esModule进行打包，由于浏览器天然支持esModule，因此vite使用esModule打包时，只编译对应的模块，返回给浏览器，因此更快
+        //  等到对应模块更新时，只会通过热更新当前模块
+        //
+        //  esModule就是一个script标签，type=module
+        // <script type="module"></script>
+    </script>
+</body>
+
+</html>
