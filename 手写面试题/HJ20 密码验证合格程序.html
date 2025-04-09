@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>密码验证合格程序</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 一个合格密码：
+        //   1. 长度超过8位
+        //   2. 必须包含大写字母、小写字母、数字、特殊符号且出现三次
+        //   3. 不能切割出长度大于2且重复的子串
+        function handleData(line) {
+            // 长度不超过8位
+            if (line.length <= 8) {
+                return console.log("NG");
+            }
+            // 至少三次
+            var nums = 0;
+            if (/[a-z]/.test(line)) nums++;
+            if (/[A-Z]/.test(line)) nums++;
+            if (/[\d]/.test(line)) nums++;
+            if (/[^\da-zA-Z]/.test(line)) nums++;
+            if (nums < 3) return console.log("NG");
+
+            // 独立子串, 重复出现2次
+            if (/(.{3,}).*\1/g.test(line)) {
+                console.log("NG");
+            } else {
+                console.log("OK");
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>删除字符串中出现次数最少的字符</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 删除字符串中出现次数最少的字符
+        //   删除出现次数最少的字符，都最少就都删除
+        function deleteLastStr(line) {
+            const obj = {};
+            // 把每个字符出现的次数统计在obj中，以字符为=为key
+            for (let value of line) {
+                if (obj[value]) {
+                    obj[value]++;
+                } else {
+                    obj[value] = 1;
+                }
+            }
+            // 统计出现最小的次数
+            const min = Math.min(...Object.values(obj))
+            var str = ''
+            for (let value of line) {
+                // 当时最小值时，不累加
+                if (obj[value] !== min) str += value
+            }
+            console.log(str)
+        }
+    </script>
+</body>
+
+</html>

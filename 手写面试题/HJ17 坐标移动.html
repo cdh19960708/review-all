@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>坐标移动</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //    顶一个一个坐标为（0， 0）的人，WASD分别为向上移动，向左移动，向下移动，向右移动，坐标后面为值，输出正确的坐标
+        function point(str) {
+            var strArr = str.split(';')
+            var x = 0, y = 0
+            strArr.forEach(val => {
+                var value = Number(val.slice(1))
+                if (isNaN(value) || (!isNaN(value) && (value < 0 || value > 100))) return
+                switch (val.charAt(0)) {
+                    case 'W':
+                        y = y + value
+                        break;
+                    case 'S':
+                        y = y - value
+                        break;
+                    case 'D':
+                        x = x + value
+                        break;
+                    case 'A':
+                        x = x - value
+                        break;
+                }
+            })
+            console.log(x + ',' + y)
+        }
+        point('A10;S20;W10;D30;X;A1A;B10A11;;A10;')
+    </script>
+</body>
+
+</html>
