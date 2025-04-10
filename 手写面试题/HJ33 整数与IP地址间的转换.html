@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>整数与IP地址间的转换</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        // 整数与IP地址间的转换
+        // 将ip转成10进制，先转成2进制，然后将2进制拼接起来转成10进制
+        // 将整数转成2进制：先转成2进制字符串，填充成32位，每8位截取，转成10进制，用.拼接
+        function toNums(ip) {
+            // toString(2)是转成2进制的字符串，填充0是因为要和后面的字符串拼接，不使用0填充的话，会导致位数不够导致不准确
+            var val = ip.split('.').map(str => Number(str).toString(2).padStart(8, '0')).join('')
+            var value = parseInt(val, 2) // 将2进制解析成10进制
+            console.log(value)
+        }
+
+        function toIp(num) {
+            var str = Number(num).toString(2).padStart(32, '0')
+            var strArr = [str.slice(0, 8), str.slice(8, 16), str.slice(16, 24), str.slice(24, 32)]
+            var ipStr = strArr.map(str => parseInt(str, 2)).join('.')
+            console.log(ipStr)
+        }
+
+        toIp(167969729)
+        toNums('10.0.3.193')
+    </script>
+</body>
+
+</html>

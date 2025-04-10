@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字符串逆序</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //  将字符串翻转输出
+        function strReverse(str) {
+            // return str.split('').reverse().join('')
+
+            var len = str.length
+            var reverseStr = ''
+            for (var i = len - 1; i >= 0; i--) {
+                reverseStr += str[i]
+            }
+            return reverseStr
+        }
+    </script>
+</body>
+
+</html>

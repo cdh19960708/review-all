@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>输入整型数组和排序标识</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        //    对于给出的n个元素的数组，根据要求，进行顺序升序或者降序
+        // 第一个参数是数组长度、第二个是数组的元素，第三个是排序方式、0是升序，1是降序
+        function sort(length, arrEle, sort) {
+            var arr = arrEle.split(' ')
+            var newArr = arr.sort((a, b) => {
+                return sort == 0 ? a - b : b - a
+            }).join(' ')
+            console.log(newArr)
+        }
+        sort(5, '1 2 2 5 4', 0)
+    </script>
+</body>
+
+</html>
